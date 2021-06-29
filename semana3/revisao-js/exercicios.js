@@ -188,7 +188,11 @@ function ordenaArray(array) {
 
 // EXERCÍCIO 12
 function filmeFavorito() {
+const filme = {
+  nome: 'O Diabo Veste Prada',
+  
 
+}
 }
 
 // EXERCÍCIO 13
