@@ -34,7 +34,7 @@ div>p:first-child {
 }
 
 div img {
-    background: black;
+    /* background: black; */
 }
 
 .botao-amarelo {
@@ -48,6 +48,10 @@ div img {
 
 .botao-amarelo:hover {
     background-color: #c44f00;
+}
+
+.botao-amarelo:active {
+    background-color: red;
 }
 
 .container {
