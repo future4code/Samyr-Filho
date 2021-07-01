@@ -76,13 +76,6 @@ div img {
     padding: 15px 0px;
 }
 
-#texto-principal{
-    display: inline;
-    width: 500px;
-    background-color: #635a3d;
-    color: red;
-}
-
 
 #container-para-comprar {
     background-color: #e7eb90;
@@ -136,4 +129,8 @@ td button {
 
 #back-button:hover {
     background-color: #635a3d
+}
+
+.descricao-tabela{
+    text-align: center;
 }
