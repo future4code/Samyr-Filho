@@ -1,0 +1,43 @@
+
+p{
+    color: brown;
+    text-align: center;
+    font-size: 25px;
+}
+.links-pagina{
+    text-align: center;
+    font-size: 20px;
+}
+a{
+    margin-left: 15px;
+    font-size: 30px;
+}
+
+h2{
+    font-size : 50px;
+    color: coral;
+}
+
+
+.secao-entrada{
+    width: 400px;
+}
+
+.inputs-produto{
+    padding: 5px;
+    background-color: rgb(207, 207, 207);
+    margin-bottom: 10px;   
+}
+#total-venda{
+    font-size: 30px;
+}
+li{
+    font-size: 20px;
+}
+
+.inputs-pagato{
+    padding: 5px;
+    background-color: rgb(207, 207, 207);
+    display: inline;
+    margin-bottom: 10px;   
+}

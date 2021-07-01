@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="pagina-venda.css">
+    <title>Venda</title>
+</head>
+<body>
+    <div>
+        <p>Lojas Doreltec</p>
+    </div>
+    <div class="links-pagina">
+        <a href="./index.html">Página Inicial</a>
+        <a href="./historico-vendas.html">Histórico de Vendas</a>
+        <a href="./ctrl-estoque.html">Controle de Estoque</a>
+        <a href="./add-produto.html">Adicionar Produto</a>
+        
+    </div>
+
+    <h2>Venda</h2>
+
+    <form action="#">
+        <div class="secao-entrada" >
+            <div class="inputs-produto">
+                <label for="descrição do produto">Informe o produto:</label>
+                <input type="text" name="descProduto" id="descrição do produto">
+            </div>
+            <div class="inputs-produto">
+                <label for="quantidade do produto">Informe a quantidade:</label>
+                <input type="text" name="quantProduto" id="quantidade do produto">
+            </div>
+            <div class="inputs-produto">
+                <label for="preço unitário do produto">Informe o preço unitário:</label>
+                <input type="text" name="precoProduto" id="preço unitário do produto">
+                
+            </div>
+            
+        </div>
+        
+        <ol>
+            <li>Carrinho para bebê</li>
+            <li>Cadeira de Alimentação Cinza</li>
+        </ol>
+
+        <div id="total-venda">
+            Total da venda: R$ 500,00
+        </div>
+        
+        <div>
+            <h3>Opções de pagamento</h3>
+                <div class="inputs-pagato">
+                    <label for="dinheiro">Dinhero</label>
+                    <input type="checkbox" name="pagatoDinheiro" id="dinheiro">
+                </div>
+                <div class="inputs-pagato">
+                    <label for="cartão">Cartão</label>
+                    <input type="checkbox" name="pagatoCartao" id="cartão">
+                </div>
+        </div>
+    </form>
+</body>
+</html>
