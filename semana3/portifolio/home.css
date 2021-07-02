@@ -1,0 +1,61 @@
+*{
+    margin: 0%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.toolbar{
+    text-align: center;
+    
+}
+.toolbar h1{
+    color: burlywood;
+    margin-bottom: 20px;
+}
+.toolbar h2{
+    margin-bottom: 10px;
+}
+
+.corpo-principal{
+    text-align: center;
+    margin-top: 40px;
+}
+
+.corpo-principal div{
+    /* display: inline; */
+}
+.corpo-principal img{
+    width: 500px;
+}
+
+#apresentacao>h2{
+    color: rgb(221, 113, 113);
+    margin-bottom: 10px;
+    margin-top: 50px;
+}
+#apresentacao>li{
+    color: rgb(133, 133, 133);
+    margin-top: 5px;
+}
+#apresentacao b{
+    color: rgb(63, 63, 63);
+    font-size: 20px;
+}
+
+.projetos{
+    margin-top: 30px; 
+}
+.projetos div{
+    display: inline;
+}
+.projetos img{
+    width: 80px;
+}
+.projetos a{
+    display: block;
+    margin-bottom: 30px;
+}
+
+.projetos a:hover{
+    color: goldenrod;
+}
+
