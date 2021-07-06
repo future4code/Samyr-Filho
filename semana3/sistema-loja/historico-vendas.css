@@ -1,0 +1,39 @@
+
+p{
+    color: brown;
+    text-align: center;
+    font-size: 25px;
+}
+
+
+.links-pagina{
+    text-align: center;
+    font-size: 20px; 
+}
+a{
+    margin-left: 15px;
+    font-size: 30px;
+}
+
+h2{
+    font-size : 50px;
+    color: coral;
+}
+table{
+    margin-top: 20px;
+}
+
+th{
+    font-size: 30px;
+}
+td{
+    font-size: 30px;
+}
+
+.alinha-valor{
+    text-align: right;
+}
+.pesquisa{
+    font-size: 30px;
+    margin-top: 20px;
+}
