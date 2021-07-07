@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    display: flex;
+    background-color: chocolate;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+#pesquisa {
+    /* height: 50px; */
+}
+
+#pesquisa img{
+    height: 2em;
+    margin-right: 5px;
+}
+
+
+main{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  align-items: center;
+  text-align: center;
+  margin: 20px;
+}
+
+.item-video{
+    margin: 5px;
+    box-shadow: 2px 2px 5px darkgrey;
+}
+
+.item-video img{
+    width: 100%;
+}
+footer {
+    background-color: chocolate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+  }
+
