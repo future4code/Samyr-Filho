@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    display: flex;
+    background-color: chocolate;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+}
+button{
+    background-color: cyan;
+    width: 150px;
+    height: 50px;
+    font-size: 30px;
+}
+
+button:hover{
+    color: red;
+}
+button:active{
+    background-color: springgreen;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 5%;
+}
+
