@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    display: flex;
+    background-color: chocolate;
+    height: 10%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+#pesquisa {
+    height: 50px;
+}
+
+#pesquisa img{
+    height: 2em;
+    margin-right: 5px;
+}
+
+.container{
+    height: 100vh;
+}
+main{
+  display: grid;
+  align-items: center;
+  text-align: center;
+  margin: 10px;
+  overflow: auto; 
+}
+
+@media screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    /* celular */ 
+    main{
+        grid-template-columns: 1fr;
+    }
+    
+}
+
+@media screen and (min-device-width : 1200px) {
+    /* descktop */    
+    main{
+        grid-template-columns: repeat(4, 1fr);
+        height: 80%;
+    }
+    footer{
+        position:absolute;
+        bottom:0;
+        width:100%;
+    }
+}
+
+.item-video{
+    margin: 5px;
+    box-shadow: 3px 3px 5px darkgrey;
+    width: 90%;
+    height: 90%;
+}
+
+.item-video img{
+    width: 90%;
+    height: 80%;
+}
+footer {
+    background-color: chocolate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1 / -1;
+    font-size: 1.5em;
+    height: 10%;
+    
+  }
+
