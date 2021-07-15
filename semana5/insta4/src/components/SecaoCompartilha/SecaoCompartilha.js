@@ -2,11 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 
-const CompartilhaContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-`
+// const CompartilhaContainer = styled.div`
+//     display: flex;
+//     justify-content: center;
+//     padding: 5px;
+// `
 
 // const InputComentario = styled.input`
 //     width: 100%;
@@ -38,13 +38,13 @@ const CompartilhaContainer = styled.div`
 // 	}
 // }
 
-export class SecaoCompartilha extends Component {
-    render() {
-        return 
-        (
-        <CompartilhaContainer>
+// export class SecaoCompartilha extends Component {
+//     render() {
+//         return 
+//         (
+//         <CompartilhaContainer>
             
-        </CompartilhaContainer>
-        )
-    }
-}
+//         </CompartilhaContainer>
+//         )
+//     }
+// }
