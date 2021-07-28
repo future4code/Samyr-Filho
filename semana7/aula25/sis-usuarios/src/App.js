@@ -3,8 +3,16 @@ import axios from 'axios'
 import styled from 'styled-components'
 import CadastroUsuario from './Componentes/CadastroUsuarios'
 import ListaUsuarios from './Componentes/ListaUsuarios'
+import DetalheUsuario from './Componentes/DetalheUsuario'
 
-const url= 'https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users'
+
+
+const EstiloTela = styled.div `
+   text-align: center; 
+
+`
+
+let url= 'https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users'
 const headers = {
   headers: {
     Authorization: "samyr-hissa-lovelace"
@@ -12,22 +20,15 @@ const headers = {
 }
 
 class App extends React.Component {
+
   state = {
     listaUsuarios: [],
-    inputEmail: '',
-    inputNome: '', 
-    telaCadastro: true
+    telaAtual: 'Cadastro',
+    id_detalhe: ''
   }
 
-  componentDidUpdate() {
+componentDidUpdate() {
     
-  }
-
-  onChangeEmail = (event) => {
-    this.setState({inputEmail: event.target.value})
-  }
-  onChangeNome = (event) => {
-    this.setState({inputNome: event.target.value})
   }
 
   puxarListaUsuarios = () => {
@@ -39,68 +40,64 @@ class App extends React.Component {
       .catch((erro) => {
         console.log(erro)
       })
-  }
-  incluirUsuario = () => {
-    
-    const body = {
-        name: this.state.inputNome,
-        email: this.state.inputEmail
+}
+
+deletarUsuario = async (id) => {
+    const param = url + '/' + id;
+    if (window.confirm ("Confirma a exclusão?")) {
+        try {
+            const response = await axios.delete(param, headers)
+            
+        }
+        catch(error) {
+            alert('Usuário não excluído!')
+        }
+        this.puxarListaUsuarios()
+    } else {
+        alert('Usuário não excluído')
     }
-    
-    axios
-      .post(url, body, headers)
-      .then((res) => {
-        alert('Usuario Incluido!')
-        
-      })
-      .catch((erro) => {
-        alert(erro.response.data)
-      })
+}
+
+  mudarTelaCadastro = () => {
+    this.setState({telaAtual: 'Cadastro'})
   }
-  mudarTela = () => {
-    this.setState({telaCadastro: !this.state.telaCadastro})
-    console.log(this.state.telaCadastro)
-    this.renderizaTelaCorreta()
+  mudarTelaLista = () => {
+    {this.puxarListaUsuarios()}
+    this.setState({telaAtual: 'Lista'})
+  }
+
+  mudarTelaDetalhe = () => {
+    
+    this.setState({telaAtual: 'Detalhe'})
   }
 
   renderizaTelaCorreta = () => {
-    if (this.state.telaCadastro) {
+    if (this.state.telaAtual === 'Cadastro') {
       return <CadastroUsuario
-      valorInputEmail = {this.state.inputEmail}
-      valorInputNome = {this.state.inputNome}
-      onChangeEmail = {this.onChangeEmail}
-      onChangeNome = {this.onChangeNome}
-      onClickIncluir = {this.incluirUsuario} />;
+              onClickLista = {this.mudarTelaLista} 
+              />;
+    } else if (this.state.telaAtual === 'Lista') {
+      return <ListaUsuarios 
+              onClickVoltar = {this.mudarTelaCadastro}
+              onClickTelaDetalhe = {this.mudarTelaDetalhe}
+              listaUsuarios = {this.state.listaUsuarios}
+              onClickDeletar = {this.deletarUsuario}
+            /> ;
     } else {
-      return <ListaUsuarios></ListaUsuarios> ;
+      return <DetalheUsuario 
+                onClickTelaLista = {this.mudarTelaLista}
+                id_usuario = {this.state.id_detalhe}
+              >
+              </DetalheUsuario>
     }
   };
   render() {
-
-    const componenteListaUsuarios = this.state.listaUsuarios.map((usuario) => {
-      return (<li key={usuario.id}>
-                {usuario.name}
-              </li>      
-      )
-    })
   return (
-    <div>
-        <h3>Sistema de usuários</h3>
-        <CadastroUsuario
-          valorInputEmail = {this.state.inputEmail}
-          valorInputNome = {this.state.inputNome}
-          onChangeEmail = {this.onChangeEmail}
-          onChangeNome = {this.onChangeNome}
-          onClickIncluir = {this.incluirUsuario}
-          mudarTela = {this.mudarTela}
-        >
-
-        </CadastroUsuario>
-        <button onClick={this.mudarTela}>
-          Lista
-        </button>
-        {/* <div>{componenteListaUsuarios}</div> */}
-    </div>
+    <EstiloTela>
+        <h2>Sistema de usuários</h2>
+        <hr></hr>
+        {this.renderizaTelaCorreta()}
+    </EstiloTela>
   );
   }
 }
