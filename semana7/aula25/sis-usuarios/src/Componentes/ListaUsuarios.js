@@ -18,39 +18,6 @@ const EstiloContainer = styled.div `
 
 
 class ListaUsuarios extends React.Component {
-    state = {
-        // listaUsuarios: []
-    }
-
-
-    // puxarListaUsuarios = () => {
-    //     axios
-    //       .get(url, headers)
-    //       .then((res) => {
-    //         this.setState({listaUsuarios: res.data})
-    //       })
-    //       .catch((erro) => {
-    //         console.log(erro)
-    //       })
-    // }
-
-    // deletarUsuario = async (id) => {
-    //     const param = url + '/' + id;
-    //     if (window.confirm ("Confirma a exclusão?")) {
-    //         try {
-    //             const response = await axios.delete(param, headers)
-                
-    //         }
-    //         catch(error) {
-    //             alert('Usuário não excluído!')
-    //         }
-    //         this.puxarListaUsuarios()
-    //     } else {
-    //         alert('Usuário não excluído')
-    //     }
-    // }
-
-    
     render() {
         
             const lista = this.props.listaUsuarios.map((usuario) => {
@@ -59,6 +26,7 @@ class ListaUsuarios extends React.Component {
                             onClick={() => this.props.onClickTelaDetalhe(usuario.id)}
                             >
                                 {usuario.name}
+                                {usuario.email}
                             </li>
                             <button 
                             onClick={() => this.props.onClickDeletar(usuario.id)}

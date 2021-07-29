@@ -96,11 +96,6 @@ class CadastroUsuario extends React.Component {
                 <EstiloBotaoLista onClick={this.props.onClickLista}>
                     Ir para a Lista
                 </EstiloBotaoLista>
-                {/* <button>
-                    <ListaUsuarios>
-
-                    </ListaUsuarios>
-                </button> */}
             </div>
             
         )
