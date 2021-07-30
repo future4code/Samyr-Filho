@@ -12,7 +12,13 @@ class PlayListas extends React.Component {
     state = {
         playLista: [],
         inputNome: '',
-        telaAtual: 'Inclusao'
+        telaAtual: 'Inclusao',
+        playListSel: {
+            id: '',
+            name: ''
+        }
+        
+
     }
     componentDidMount() {
         this.getPlayList()
@@ -46,8 +52,16 @@ class PlayListas extends React.Component {
             }
         this.getPlayList()
     }
-    mudarTelaDetalhe = () => {
+    mudarTelaDetalhe = (event) => {
+        const novoPlaySel = {
+            id: event.target.id,
+            name: event.target.value
+        }
+        // const liSel = event.target.nome
+        // console.log('id: ', event.target.id, 'name: ', event.target.value)
+        this.setState({playListSel: novoPlaySel})
         this.setState({telaAtual: 'Detalhe'})
+        
     }
     mudarTelaAdd = () => {
         this.setState({telaAtual: 'Inclusao'})
@@ -55,7 +69,7 @@ class PlayListas extends React.Component {
 
     render() {
         const listaPLaylist = this.state.playLista.map((play) => {
-            return <li key={play.id} value={play.id} onClick={this.mudarTelaDetalhe}>{play.name}
+            return <li key={play.id} id={play.name} nome={play.name} onClick={this.mudarTelaDetalhe}>{play.name}
             <button 
                 onClick={this.delPlayList}
                 value={play.id}>Deletar</button>
@@ -80,9 +94,12 @@ class PlayListas extends React.Component {
         return (
             <div>
                 
-                {(this.state.telaAtual === 'Inclusao') ? Inclusao() : <DetalhesPlaylist
-                                                                      mudarTelaAdd={this.mudarTelaAdd}
-                                                                      ></DetalhesPlaylist>}
+                {(this.state.telaAtual === 'Inclusao') ? 
+                    Inclusao() : 
+                    <DetalhesPlaylist
+                        mudarTelaAdd={this.mudarTelaAdd}
+                        PlayListSel={this.state.playListSel}
+                    ></DetalhesPlaylist>}
                 
             </div>
         )
