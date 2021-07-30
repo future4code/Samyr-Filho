@@ -38,7 +38,7 @@ class PlayListas extends React.Component {
     getPlayList = async () => {
         const response = await axios
             .get('https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists', headers);
-        // console.log('lista: ', response.data.result.list)
+
         this.setState({playLista: response.data.result.list}) 
     }
     delPlayList = async (event) => {
@@ -57,8 +57,7 @@ class PlayListas extends React.Component {
             id: event.target.id,
             name: event.target.value
         }
-        // const liSel = event.target.nome
-        // console.log('id: ', event.target.id, 'name: ', event.target.value)
+
         this.setState({playListSel: novoPlaySel})
         this.setState({telaAtual: 'Detalhe'})
         
