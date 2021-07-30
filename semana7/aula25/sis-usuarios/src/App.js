@@ -66,10 +66,11 @@ deletarUsuario = async (id) => {
     this.setState({telaAtual: 'Lista'})
   }
 
-  mudarTelaDetalhe = () => {
-    
+  mudarTelaDetalhe = (id) => {
+    this.setState({id_detalhe: id})
     this.setState({telaAtual: 'Detalhe'})
   }
+
 
   renderizaTelaCorreta = () => {
     if (this.state.telaAtual === 'Cadastro') {
@@ -87,6 +88,7 @@ deletarUsuario = async (id) => {
       return <DetalheUsuario 
                 onClickTelaLista = {this.mudarTelaLista}
                 id_usuario = {this.state.id_detalhe}
+                lista = {this.state.listaUsuarios}
               >
               </DetalheUsuario>
     }
