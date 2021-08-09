@@ -24,8 +24,7 @@ class DetalhesPlaylist extends React.Component {
         const response2 = await axios.get(
             url, headers
         )
-        console.log(response2.data.result.tracks)
-        
+
         this.setState({tracks:response2.data.result.tracks})
     }
     render() {
