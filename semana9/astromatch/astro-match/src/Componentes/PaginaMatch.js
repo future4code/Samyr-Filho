@@ -66,7 +66,7 @@ const PaginaMatch = (props) => {
     return (
         <StylePrincipal>
             <StyleCard>
-                <img src={props.person.photo} />
+                <img src={props.person.photo} alt='Foto da persona' />
                 <StyleDescricao>
                     <h2>{props.person.name}, </h2>
                     <h3>{props.person.age}</h3>

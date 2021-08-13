@@ -58,8 +58,8 @@ const StyleLimpar = styled.button `
 const PaginaListaMatch = (props) => {
     const listaMatchs = props.lista.map((person) => {
         return (
-            <li>
-                <img src={person.photo} />
+            <li key={props.id}>
+                <img src={person.photo} alt='Foto da Persona' />
                 <div>{person.name}</div>
             </li>
         )

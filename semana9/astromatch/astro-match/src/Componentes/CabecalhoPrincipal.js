@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from '../img/logo.png'
 import matchs from '../img/Matchs.png'
 import styled from 'styled-components'
