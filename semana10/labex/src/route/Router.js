@@ -1,9 +1,10 @@
-import { Inicial } from "../Pages/Inicial";
-import { AreaPublica } from "../Pages/AreaPublica";
-import { DetalheViagem } from "../Pages/DetalheViagem";
-import { FazerInscricao } from "../Pages/FazerInscricao";
-import { FazerLogin } from "../Pages/FazerLogin";
-import { Administrativa } from "../Pages/Administrativa";
+import { HomePage } from "../Pages/HomePage";
+import { ListTripsPage } from "../Pages/ListTripsPage";
+import { TripDetailsPage } from "../Pages/TripDetailsPage";
+import { ApplicationFormPage } from "../Pages/ApplicationFormPage";
+import { LoginPage } from "../Pages/LoginPage";
+import { AdminHomePage } from "../Pages/AdminHomePage";
+import { CreateTripPage } from "../Pages/CreateTripPage";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -12,27 +13,31 @@ export const Router = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path={'/'}>
-                    <Inicial />
+                    <HomePage />
                 </Route>
 
-                <Route exact path={'/AreaPublica'}>
-                    <AreaPublica />
+                <Route exact path={'/trips/list'}>
+                    <ListTripsPage />
                 </Route>
                 
-                <Route exact path={'/FazerInscricao'}>
-                    <FazerInscricao />
+                <Route exact path={'/trips/application'}>
+                    <ApplicationFormPage />
                 </Route>
                 
-                <Route exact path={'/FazerLogin'}>
-                    <FazerLogin />
+                <Route exact path={'/login'}>
+                    <LoginPage />
                 </Route>
 
-                <Route exact path={'/Administrativa'}>
-                    <Administrativa />
+                <Route exact path={'/admin/trips/list'}>
+                    <AdminHomePage />
                 </Route>
 
-                <Route exact path={'/DetalheViagem'}>
-                    <DetalheViagem />
+                <Route exact path={'/admin/trips/create'}>
+                    <CreateTripPage />
+                </Route>
+
+                <Route exact path={'/admin/trips/:id'}>
+                    <TripDetailsPage />
                 </Route>
 
             </Switch>
