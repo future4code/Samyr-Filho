@@ -12,7 +12,7 @@ export const HomePage =  () => {
         history.push('/trips/list')
     }
     const irParaLoginPage = () => {
-        history.push('/login')
+        localStorage.getItem('token') === '' ? history.push('/login') : history.push('/admin/trips/list')
     }
 
     

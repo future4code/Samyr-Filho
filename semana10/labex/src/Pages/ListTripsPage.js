@@ -1,14 +1,39 @@
-import React  from  "react";
+import React, { useEffect, useState }  from  "react";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import * as All from './Styles.js'
 import { CardViagens } from "./Cards/CardViagens.js";
-import { useRequestData } from "../Hooks/useRequestListaTrips.js";
+import { useRequestListaTrips } from "../Hooks/useRequestListaTrips.js";
 
 
 
 export const ListTripsPage =  () => {
 
-    const listaViagens = useRequestData('https://us-central1-labenu-apis.cloudfunctions.net/labeX/:samyr-hissa-lovelace/trips');
+  const url = 'https://us-central1-labenu-apis.cloudfunctions.net/labeX/:samyr-hissa-lovelace/trips'
+    
+  const trip = useRequestListaTrips(url);
+    
+
+  // const [trip, setTrip] = useState([])
+
+  // useEffect(() => {
+  //     getListTrip()
+  //   },
+  //   []);
+
+
+  // const getListTrip = () => {
+  //   axios.get(url)
+  //         .then((res) => {
+  //           console.log('lisssta', res.data.trips)
+  //           setTrip(res.data.trips)
+  //         })
+  //         .catch((err) => {
+  //             setTrip([])
+  //             alert('Ocorreu um erro ao carregar a lista de viagens!')
+  //         });
+  // }
+
     const history = useHistory();
     const goBack = () => {
         history.goBack();
@@ -17,9 +42,11 @@ export const ListTripsPage =  () => {
 
     const irFazerInscricao = () => {
         history.push('/trips/application')
+        // getListTrip()
     }
 
-    const listaViagem = listaViagens && listaViagens.map((viagem) => {
+    const listaViagem = trip && trip.map((viagem) => {
+  
         return (
             
                 
@@ -34,15 +61,15 @@ export const ListTripsPage =  () => {
             
         )
     }) 
-    
     return (
         <div>
             
             <All.SessaoSuperior>
                 <button onClick={goBack} type="button" class="btn btn-secondary">Voltar</button>
-                {listaViagens.length !== 0 && <button onClick={irFazerInscricao}  type="button" class="btn btn-primary">Fazer Inscrição</button>}
+                {/* <button onClick={irFazerInscricao}  type="button" class="btn btn-primary">Fazer Inscrição</button> */}
+                {trip.length ? <button onClick={irFazerInscricao}  type="button" class="btn btn-primary">Fazer Inscrição</button> : <p></p>}
             </All.SessaoSuperior>
-            {listaViagens.length !== 0 ? <All.Titulos>Se candidate à uma das viagens</All.Titulos> : <All.Titulos>Não há viagens cadastradas</All.Titulos>}
+            {trip.length ? <All.Titulos>Se candidate à uma das viagens</All.Titulos> : <All.Titulos>Não há viagens cadastradas</All.Titulos>}
             <All.ListTrips>
                 {listaViagem}
             </All.ListTrips>

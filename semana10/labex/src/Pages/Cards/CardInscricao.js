@@ -3,22 +3,24 @@ import React from  "react";
 import { ComboPaises } from "../../Componentes/ComboPaises";
 
 
-const ComboViagem = () => {
-    return (
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Escolha uma Viagem</option>
-            <option value="1">Viagem 1</option>
-            <option value="2">Viagem 2</option>
-            <option value="3">Viagem 3</option>
-        </select>
-    )
-}
 
 
-export const CardInscricao = () => {
+
+export const CardInscricao = (props) => {
+    const ComboViagem = props.lista.map((trip) => {
+        return (
+                <option value={trip.id} 
+                >{trip.name}</option>
+        )
+    })
     return (
         <div>
-            <ComboViagem></ComboViagem>
+            <select class="form-select" aria-label="Default select example" 
+            onChange={(e) => props.selecionarViagem(e)} 
+            >
+                <option value=''>Escolha uma Viagem</option>
+                {ComboViagem}
+            </select>
             <input placeholder='Nome'></input>
             <input placeholder='Idade'></input>
             <input placeholder='Texto de candidatura'></input>
