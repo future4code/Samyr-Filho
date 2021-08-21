@@ -1,78 +1,67 @@
 import React, { useEffect, useState }  from  "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import * as All from './Styles.js'
-import { CardViagens } from "./Cards/CardViagens.js";
+import { CardUmaViagem } from "./Cards/CardUmaViagem.js";
 import { useRequestListaTrips } from "../Hooks/useRequestListaTrips.js";
 
 
 
 export const ListTripsPage =  () => {
 
-  const url = 'https://us-central1-labenu-apis.cloudfunctions.net/labeX/:samyr-hissa-lovelace/trips'
+  const url = 'https://us-central1-labenu-apis.cloudfunctions.net/labeX/samyr-hissa-lovelace/trips'
     
-  const trip = useRequestListaTrips(url);
-    
-
-  // const [trip, setTrip] = useState([])
-
-  // useEffect(() => {
-  //     getListTrip()
-  //   },
-  //   []);
-
-
-  // const getListTrip = () => {
-  //   axios.get(url)
-  //         .then((res) => {
-  //           console.log('lisssta', res.data.trips)
-  //           setTrip(res.data.trips)
-  //         })
-  //         .catch((err) => {
-  //             setTrip([])
-  //             alert('Ocorreu um erro ao carregar a lista de viagens!')
-  //         });
-  // }
-
+  const [trip, isLoading, error] = useRequestListaTrips(url);
     const history = useHistory();
     const goBack = () => {
         history.goBack();
       };
 
-
+      const [viagemSelecionada, setViagemSelecioanda] = useState('')
     const irFazerInscricao = () => {
         history.push('/trips/application')
-        // getListTrip()
+        
+    }
+
+    const selecionarViagem = (event) => {
+        // {event.target.value !== '' && setViagemSelecioanda(event.target.value)}
     }
 
     const listaViagem = trip && trip.map((viagem) => {
+
   
         return (
-            
-                
-                <li key={viagem.id}><CardViagens 
+                <li >
+                    
+                    <CardUmaViagem 
                             nome={viagem.name}
                             planeta={viagem.planet}
                             descricao={viagem.description}
                             duracao={viagem.durationInDays}
                             data={viagem.date}
-                        ></CardViagens>
+                            Viagem = {(e) => selecionarViagem(e)}
+                     />
                 </li>
             
         )
-    }) 
+    }
+    ) 
     return (
         <div>
-            
             <All.SessaoSuperior>
                 <button onClick={goBack} type="button" class="btn btn-secondary">Voltar</button>
-                {/* <button onClick={irFazerInscricao}  type="button" class="btn btn-primary">Fazer Inscrição</button> */}
                 {trip.length ? <button onClick={irFazerInscricao}  type="button" class="btn btn-primary">Fazer Inscrição</button> : <p></p>}
             </All.SessaoSuperior>
-            {trip.length ? <All.Titulos>Se candidate à uma das viagens</All.Titulos> : <All.Titulos>Não há viagens cadastradas</All.Titulos>}
-            <All.ListTrips>
-                {listaViagem}
-            </All.ListTrips>
+                {isLoading && <p>Carregando</p>}
+                {!isLoading && error && <p>Ocorreu um erro</p>}
+                {!isLoading && trip && trip.length > 0 && 
+                    <div>
+                        <All.Titulos>Se candidate à uma das viagens</All.Titulos>
+                        <All.ListTrips>
+                            {listaViagem}
+                        </All.ListTrips>
+                    </div>}
+                {!isLoading && trip && trip.length > 0 && <All.Titulos>Não há viagens cadastradas</All.Titulos>}
+            
         </div>
     )
 }

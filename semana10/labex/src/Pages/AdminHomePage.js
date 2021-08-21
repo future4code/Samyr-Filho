@@ -2,12 +2,13 @@ import React from  "react";
 import { useHistory } from "react-router-dom";
 import * as All from './Styles.js'
 import { useRequestListaTrips } from "../Hooks/useRequestListaTrips.js";
+import { CardViagens } from "./Cards/CardViagens.js";
 
 
 export const AdminHomePage =  () => {
-    const url = 'https://us-central1-labenu-apis.cloudfunctions.net/labeX/:samyr-hissa-lovelace/trips'
+    const url = 'https://us-central1-labenu-apis.cloudfunctions.net/labeX/samyr-hissa-lovelace/trips'
     
-    const trip = useRequestListaTrips(url);
+    const [trip, isLoading, error] = useRequestListaTrips(url);
     
     const history = useHistory();
 
@@ -15,14 +16,12 @@ export const AdminHomePage =  () => {
         history.goBack();
       };
     
-
-    
     const goToCreateTrip = () => {
         history.push('/admin/trips/create')
     }
 
     const goToTripDetail = (event) => {
-        console.log('env', event.target.id)
+        
         history.push(`/admin/trips/${event.target.id}`)
     }
 
@@ -35,22 +34,17 @@ export const AdminHomePage =  () => {
   
         return (
             
-            <a 
-                onClick={goToTripDetail} 
-                id={trip.id} 
-                href="#" 
-                class="list-group-item list-group-item-action list-group-item-primary">
-                    {trip.name}
-                </a>
-            
-            // <li key={viagem.id}><CardViagens 
-            //                 nome={viagem.name}
-            //                 planeta={viagem.planet}
-            //                 descricao={viagem.description}
-            //                 duracao={viagem.durationInDays}
-            //                 data={viagem.date}
-            //             ></CardViagens>
-            //     </li>
+            <All.Lista key={viagem.id}><CardViagens
+                            id={viagem.id}
+                            nome={viagem.name}
+                            planeta={viagem.planet}
+                            descricao={viagem.description}
+                            duracao={viagem.durationInDays}
+                            data={viagem.date}
+                            goToTripDetail={(e)=>goToTripDetail(e)}
+                            tela='adminHomePage'
+                        ></CardViagens>
+                </All.Lista>
             
         )
     }) 

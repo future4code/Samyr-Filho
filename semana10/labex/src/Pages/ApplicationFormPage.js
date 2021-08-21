@@ -2,51 +2,13 @@ import React, { useState } from  "react";
 import { useHistory } from "react-router-dom";
 import * as All from './Styles.js'
 import { CardInscricao } from "./Cards/CardInscricao.js";
+import { useRequestListaTrips } from "../Hooks/useRequestListaTrips.js";
+import axios from "axios";
 
 export const ApplicationFormPage =  () => {
-    // const listaViagens = useRequestData('https://us-central1-labenu-apis.cloudfunctions.net/labeX/:samyr-hissa-lovelace/trips');
-    const listaViagens = [
-        {
-          "id": "0aQ9retlt9zxpeo40G2M",
-          "name": "Multi luau em Jupiter",
-          "description": "Noite mágica, com vista para as 69 luas de Jupiter",
-          "planet": "Jupiter",
-          "durationInDays": 540,
-          "date": "21/12/20"
-        },
-        {
-          "id": "HF3V6C2VFWoQ3QUOVJON",
-          "name": "Picnic de Inverno em Plutão",
-          "description": "Único tour que fazemos em planeta anão no sistema solar! Levem casacos que a previsão é de −230 °C",
-          "planet": "Plutão",
-          "durationInDays": 980,
-          "date": "21/12/20"
-        },
-        {
-          "id": "NoIFVcOiSgTKTIPVZwXS",
-          "name": "Ano novo em Mercúrio",
-          "description": "Venha passar a virada pertinho do Sol!",
-          "planet": "Mercúrio",
-          "durationInDays": 7,
-          "date": "31/12/2019"
-        },
-        {
-          "id": "QuWBcnjEQXAlxjLtAjLS",
-          "name": "Surfando em Netuno",
-          "description": "Nenhum surfista intergalático pode ficar fora dessa!",
-          "planet": "Netuno",
-          "durationInDays": 540,
-          "date": "21/12/20"
-        },
-        {
-          "id": "vX4GWQtFDENjFEo7EAF1",
-          "name": "Festança Marciana",
-          "description": "Uma viagem bem legal, na melhor época de marte",
-          "planet": "Marte",
-          "durationInDays": 228,
-          "date": "21/12/21"
-        }
-      ]
+  const url = 'https://us-central1-labenu-apis.cloudfunctions.net/labeX/samyr-hissa-lovelace/trips'
+    
+  const [trip, isLoading, error] = useRequestListaTrips(url);
     const history = useHistory();
 
     const goBack = () => {
@@ -55,26 +17,74 @@ export const ApplicationFormPage =  () => {
 
     const [viagemSelecionada, setViagemSelecioanda] = useState('')
     const [inputNome, setInputNome] = useState('')
-    const [inputIdade, setInputIdade] = useState('')
+    const [inputIdade, setInputIdade] = useState(0)
     const [inputTexto, setInputTexto] = useState('')
     const [inputProfissao, setInputProfissao] = useState('')
-    const [selectPais, setSelectPais] = useState('')
+    const [pais, setPais] = useState('')
+
     const enviar = () => {
-        console.log('viagem', viagemSelecionada)
+      const body = {
+        name: inputNome,
+        age: inputIdade,
+        applicationText: inputTexto,
+        profession: inputProfissao,
+        country: pais
+      }
+
+        const url = `https://us-central1-labenu-apis.cloudfunctions.net/labeX/samyr-hissa-lovelace/trips/${viagemSelecionada}/apply`
+        
+        inputNome !== '' && inputIdade !== 0 && inputTexto !== '' && inputProfissao !== '' && pais !== '' ?
+        axios.post(url, body)
+            .then((res) => {
+            })
+            .catch((err) => {
+            }) : alert('Preencha os campos Email e Senha!')
+
     }
 
-    const selecionarViagem = (event) => {
-        
-        {event.target.value !== '' && setViagemSelecioanda(event.target.value)}
+    const onChangeViagem = () => {
+
+      const select = document.getElementById("planeta");
+      const idPlaneta = select.options[select.selectedIndex].id;
+        {idPlaneta !== '' && setViagemSelecioanda(idPlaneta)}
     }
+    const onChangePais = () => {
+      const select = document.getElementById("paises");
+      const namePais = select.options[select.selectedIndex].id;
+      {namePais !== '' && setPais(namePais)}
+    }
+    const onChangeNome = (e) => {
+        setInputNome(e.target.value)
+    }
+    const onChangeIdade = (e) => {
+      setInputIdade(e.target.value)
+    }
+    const onChangeTexto = (e) => {
+      setInputTexto(e.target.value)
+    }
+    const onChangeProfissao = (e) => {
+      setInputProfissao(e.target.value)
+    } 
 
     return (
         <div>
             <All.FazerInsc>
                 <All.Titulos>Se candidate à uma das viagens</All.Titulos>
                 <CardInscricao 
-                    selecionarViagem={(e) => selecionarViagem(e)}
-                    lista={listaViagens}
+                    onChangeViagem={onChangeViagem}
+                    lista={trip}
+                    enviar={(e) => enviar(e)}
+                    onChangePais={onChangePais}
+                    onChangeNome={onChangeNome}
+                    onChangeIdade={onChangeIdade}
+                    onChangeTexto={onChangeTexto}
+                    onChangeProfissao={onChangeProfissao}
+                    pais={pais}
+                    nome={inputNome}
+                    idade={inputIdade}
+                    texto={inputTexto}
+                    profissao={inputProfissao}
+
                 />
             </All.FazerInsc>
             <All.SessaoSuperior>

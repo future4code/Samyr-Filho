@@ -64,6 +64,7 @@ export const BotoesEmGrupo = styled.div `
     justify-content: center;
     gap: 10px;
     margin-top: 30px;
+    margin-bottom: 10px;
 `
 export const Sombra = styled.div `
     display: flex;
@@ -80,4 +81,10 @@ export const Centro = styled.div `
     flex-direction: column;
     align-items: center;
     width: 100%;
+`
+
+export const Lista = styled.ul `
+    li{
+        list-style: none;
+    }
 `

@@ -4,10 +4,7 @@ import axios from "axios";
 import { CardViagens } from "./Cards/CardViagens.js";
 import * as All from './Styles.js'
 
-const listaPlanetas = [
-    'Mercurio', 'Vênus', 'Terra', 'Marte', 'Júpter',
-    'Saturno', 'Urano', 'Netuno', 'Plutão'
-]
+
 
 export const CreateTripPage =  () => {
     const history = useHistory();
@@ -22,20 +19,22 @@ export const CreateTripPage =  () => {
     const [descricao, setDescricao] = useState('')
     const [duracao, setDuracao] = useState(0)
 
-    const onChangeNome = () => {
-        setNome(nome)
+    const onChangeNome = (event) => {
+        setNome(event.target.value)
     }
     const onClickPLaneta = (event) => {
         setPlaneta(event.target.value)
     }
-    const onChangeData = () => {
-        setData(data)
+
+    const onChangeData = (event) => {
+        setData(event.target.value)
     }
-    const onChangeDescricao = () => {
-        setDescricao(descricao)
+    
+    const onChangeDescricao = (event) => {
+        setDescricao(event.target.value)
     }
-    const onChangeDuracao = () => {
-        setDuracao(duracao)
+    const onChangeDuracao = (event) => {
+        setDuracao(event.target.value)
     }
 
     const onSubmitCriar = () => {
@@ -52,83 +51,29 @@ export const CreateTripPage =  () => {
             description: descricao,
             durationInDays: duracao
         }
-        axios.post(url)
+        axios.post(url, body, headers)
             .then((res) => {
-                console.log('lisssta', res.data)
                 // setTrip(res.data.trips)
             })
             .catch((err) => {
-                // setTrip([])
                 alert('Ocorreu um erro ao carregar a lista de viagens!')
             });
         }
-
-
-        const listagemPlanetas = listaPlanetas.map((planeta) => {
-            return (
-                <option value={planeta}>{planeta}</option>
-            )
-        })
     return (
         <All.Centro>
             <All.PageHome>Criar uma nova viagem</All.PageHome>
-            {/* <CardViagens
+            <CardViagens
                 nome={nome}
-                listaPlanetas={listaPlanetas}
                 data={data}
                 descricao={descricao}
                 duracao={duracao}
-                onChangeNome={onChangeNome}
+                onChangeNome={(e) => onChangeNome(e)}
                 onClickPLaneta={(e) => onClickPLaneta(e)}
-                onChangeData={onChangeData}
-                onChangeDescricao={onChangeDescricao}
-                onChangeDuracao={onChangeDuracao}
+                onChangeData={(e) => onChangeData(e)}
+                onChangeDescricao={(e) => onChangeDescricao(e)}
+                onChangeDuracao={(e) => onChangeDuracao(e)}
             >
-            </CardViagens> */}
-
-
-            <div class="card" >
-            <div class="card-body">
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
-                    <input 
-                        value={nome}
-                        onChange={onChangeNome}
-                        type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-                </div>
-
-                <div class="input-group mb-3">
-                <select 
-                    onClick={onClickPLaneta}
-                    class="form-select" aria-label="Default select example">
-                    <option selected>Planeta</option>
-                    {listagemPlanetas}
-                </select>
-                </div>
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Data</span>
-                    <input 
-                        value={data} onChange={onChangeData}
-                        type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-                </div>
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Descrição</span>
-                    <input 
-                        value={descricao} onChange={onChangeDescricao}
-                        type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-                </div>
-            
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Duração em dias</span>
-                    <input 
-                        value={duracao} onChange={onChangeDuracao}
-                        type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-                </div>
-            </div>
-            </div>
+            </CardViagens>
 
             <All.SessaoMedial>
                 <button onClick={goBack} type="button" class="btn btn-secondary">Voltar</button>
