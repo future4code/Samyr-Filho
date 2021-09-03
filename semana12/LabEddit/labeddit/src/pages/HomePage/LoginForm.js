@@ -1,18 +1,22 @@
 import React from 'react';
 import {useHistory} from "react-router-dom";
-import { goToCadastro, goToFeedPage } from '../../routes/coordinator';
+import { goToCadastro } from '../../routes/coordinator';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import useForm from '../../hooks/useForm';
+import { login } from '../../services/user';
 
 const LoginForm = () => {
     const history = useHistory()
+
     const onSubmitForm = (event) => {
-        console.log(form);
         event.preventDefault()
+        login(form, clear, history)
     }
 
     const [form, onChange, clear] = useForm({email:'', password:''})
+
+    
 
     return (
         <form   onSubmit={onSubmitForm} 
@@ -38,7 +42,6 @@ const LoginForm = () => {
                 value={form.password}
                 onChange={onChange}
                 required
-                type={'password'}
                 />
                 <Button
                     type={'submit'}

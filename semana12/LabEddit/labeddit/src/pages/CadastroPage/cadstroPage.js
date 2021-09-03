@@ -1,14 +1,20 @@
 import React from "react"
-import {useHistory} from "react-router-dom";
-import { goToHomePage } from '../../routes/coordinator';
-import Button from '@material-ui/core/Button';
-import { Box } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import useForm from '../../hooks/useForm';
+import {useHistory} from "react-router-dom"
+import { goToHomePage } from '../../routes/coordinator'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import useForm from '../../hooks/useForm'
+import useUnProtectedPage from "../../hooks/useUnProtectedPage"
+import { signup } from '../../services/user'
+
+
+
 const Cadastro = () => {
+    useUnProtectedPage()
     const history = useHistory()
+
     const onSubmitForm = (event) => {
-        console.log(form);
+        signup(form, onChange, clear)
         event.preventDefault()
     }
     const [form, onChange, clear] = useForm({username: '', email:'', password:''})
@@ -58,7 +64,6 @@ const Cadastro = () => {
                 value={form.password}
                 onChange={onChange}
                 required
-                type={'password'}
             />
                 <Button 
                     type={'submit'}
