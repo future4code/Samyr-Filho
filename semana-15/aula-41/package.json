@@ -1,0 +1,19 @@
+{
+  "name": "aula-41",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start1b": "node ./src/Exercicio1b/index.js",
+    "start1c": "node ./src/Exercicio1c/index.js",
+    "start2": "node ./src/Exercicio2/index.js",
+    "start3": "node ./src/Exercicio3/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  }
+}
