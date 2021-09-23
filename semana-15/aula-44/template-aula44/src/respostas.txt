@@ -1,0 +1,10 @@
+Exercício 1
+a) Método GET
+b) '/users'
+
+Exercíco 2
+a) Foi passado pelo path Params pois apenas um tipo por vez;
+b) através de um enum tipificando o type do user
+
+Exercício 3
+a) Path params
