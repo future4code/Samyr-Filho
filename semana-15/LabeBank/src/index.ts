@@ -1,11 +1,11 @@
 import express, { Request, response, Response } from 'express'
 import cors from 'cors'
-import { accounts } from './data'
+import { accounts, users } from './data'
 import { age } from '../functions/age'
 import { isDate } from 'util/types'
 import { type } from 'os'
-import { isString } from 'util'
-import { account } from './types'
+import { isNumber, isString } from 'util'
+import { account, user } from './types'
 import { NewLineKind } from 'typescript'
 
 
@@ -45,17 +45,27 @@ app.post("/accounts", (req: Request, res: Response) => {
       }
     }
     let newId: number = 1;
+    if(users.length > 0) {
+      const newId: number = users[length - 1].id + 1;
+    }
+    const newUser: user = {
+      id: newId,
+      name: name,
+      cpf: cpf,
+      birthDate: birthDate
+    }
+    users.push(newUser)
+
     if(accounts.length > 0) {
       const newId: number = accounts[length - 1].id + 1;
     }
     const newAccount: account = {
       id: newId,
-      name: name,
-      cpf: cpf,
-      birthDate: birthDate,
-      balance: 0
+      id_user: newUser.id,
+      balance: 0.00
     }
     accounts.push(newAccount)
+
     res.status(201).send({ message: "Account created successefully" });
   } 
   catch (error: any) {
@@ -70,28 +80,74 @@ app.get('/accounts/balance', (req: Request, res: Response) => {
       errorCode = 422;
       throw new Error("Please enter your name and cpf!");
     }
-    const result: account | undefined= accounts.find((account) => {
-      return (account.name.toUpperCase === name.toUpperCase) &&
-             (account.cpf === cpf)
+    const userResult: user | undefined= users.find((user) => {
+      return (user.name.toUpperCase() === name.toUpperCase()) &&
+             (user.cpf === cpf)
     })
-    if(!result){
+    if(!userResult){
       errorCode = 422;
-      throw new Error("Account not found!");
+      throw new Error("User not found!");
     }
-    res.status(200).send(`${result.balance.toFixed(2)}`)
+
+    const accountResult: account | undefined= accounts.find((account) => {
+      return (account.id_user === userResult.id)
+    })
+    if(!accountResult){
+      errorCode = 422;
+      throw new Error("User not found!");
+    }
+
+    res.status(200).send(`${accountResult.balance.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}`)
   }
   catch (error: any) {
     res.status(errorCode).send({message: error.message})
   }
 });
 
-app.put("/accounts/addBalance", (req: Request, res: Response) => {
+app.put("/accounts/balance", (req: Request, res: Response) => {
   let errorCode: number = 400;
   
   try {
     const { name, cpf, value } = req.body;
-
     if (!name || !cpf || !value) {
+      errorCode = 422;
+      throw new Error("Please check the fields!");
+    }
+    const valueDig: number = Number(value)
+    if(isNaN(valueDig)){
+      errorCode = 422;
+      throw new Error(`Please enter a valid value! ${valueDig}`);
+    }
+    const indexUser = users.findIndex((user) => {
+      return (user.name.toUpperCase() === name.toUpperCase()) &&
+             (user.cpf === cpf)
+    })
+    if(indexUser === -1){
+      errorCode = 422;
+      throw new Error(`User not found! ${name.toUpperCase()}`);
+    }
+    const indexAccount = accounts.findIndex((account) => {
+      return (account.id_user === users[indexUser].id)
+    })
+    if(indexAccount === -1){
+      errorCode = 422;
+      throw new Error(`Account not found!`);
+    }
+    accounts[indexAccount].balance =+ Number(value); 
+    res.send(`${accounts[indexAccount].balance}`).end()
+  } 
+  catch (error: any) {
+        res.status(errorCode).send({ messagem: error.message });
+  }
+});
+
+app.post("/statements", (req: Request, res: Response) => {
+  let errorCode: number = 400;
+  
+  try {
+    const { idUsuario, value, description, payDate } = req.body;
+
+    if (!idUsuario || !value || !description || !payDate) {
       errorCode = 422;
       throw new Error("Please check the fields!");
     }
