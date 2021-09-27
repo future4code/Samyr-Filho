@@ -105,4 +105,57 @@ B) SELECT * FROM Actor WHERE (NOT (name LIKE "A%")) AND salary > 350000;
 C) SELECT * FROM Actor WHERE (name LIKE "%G%") OR (name LIKE "%g%");
 D) SELECT * FROM Actor WHERE ((name LIKE "%A%") OR (name LIKE "%a%") OR (name LIKE "%g%") OR (name LIKE "%g%")) and (salary BETWEEN 350000 AND 900000);
 
+Exercício 5
+A) CREATE TABLE Filmes (
+id VARCHAR(255) PRIMARY KEY,
+name VARCHAR(255) NOT NULL,
+sinopse TEXT,
+data DATE,
+avaliacao INT
+); - Foi criado a tabela "filmes' com a chave primária 'id', o campo nome um Varchar de 255 caracteres, o campo 'sinopse' que é TEXT pois não tem limite de caracteres
+     e o campo 'avaliacao' que é um inteiro não longo
+B) INSERT INTO Filmes (id, name, sinopse, data, avaliacao) 
+VALUES ("001", 
+		"Se Eu Fosse Você",
+        "Cláudio e Helena são casados há muitos anos e enfrentam a rotina do casamento. Um dia eles são atingidos por um fenômeno inexplicável e trocam de corpos",
+		"2006/01/06",
+        7);
+
+C) INSERT INTO Filmes (id, name, sinopse, data, avaliacao) 
+VALUES ("002", 
+		"Doce de mãe",
+        "Dona Picucha, uma animada senhora de 85 anos, sempre causa grandes confusões. A vida dela e dos seus quatro filhos sofre uma reviravolta depois que Zaida, empregada e amiga de Dona Picucha, anuncia que vai se casar e não poderá mais morar com ela",
+		"2012/12/27",
+        10);
+
+D) INSERT INTO Filmes (id, name, sinopse, data, avaliacao) 
+VALUES ("003", 
+		"Dona Flor e Seus Dois Maridos",
+        "Dona Flor é uma sedutora professora de culinária casada com Vadinho, que só quer saber de farras e jogatina nas boates. A vida de abusos acaba por acarretar sua morte precoce.",
+		"2017/11/02",
+        8);
+
+E) INSERT INTO Filmes (id, name, sinopse, data, avaliacao) 
+VALUES(
+	"004",
+    "Deus é Brasileiro",
+    "Cansado da humanidade, Deus resolve tirar férias para descansar e procura alguém no Brasil capaz de substituí-lo. O borracheiro e pescador Taoca e a solitária Madá deverão guiá-lo até Quincas das Mulas, candidato de Deus a santo.",
+    "2003-01-31",
+    9
+);
+Exercício 6
+A) SELECT id, name, avaliacao FROM Filmes WHERE id = '002';
+B) SELECT * FROM Filmes WHERE name = 'Doce de mãe';
+C) SELECT id, name, sinopse FROM Filmes WHERE avaliacao >= 7;
+
+Exercicio 7
+A) SELECT * FROM Filmes WHERE name LIKE '%vida%';
+
+B) SELECT * FROM Filmes WHERE name LIKE "%dona%" OR sinopse LIKE "%mulher%";
+
+C) SELECT * FROM Filmes WHERE data < "2021/09/27";
+
+D) SELECT * FROM Filmes WHERE (name LIKE "%dona%" OR sinopse LIKE "%mulher%") AND
+			      (data < current_date()) AND
+			      (avaliacao > 7);
 '''
