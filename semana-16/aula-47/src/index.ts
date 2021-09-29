@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { AddressInfo } from "net";
 import { connection } from "./connection";
+import { isString } from "util";
 
 const app = express();
 
@@ -129,10 +130,13 @@ catch (error: any) {
 
 // c)
 const getAVGByGender = async (gender:string): Promise<any> => {
-   const result = await connection.raw(`
-   SELECT AVG(salary) FROM Actor WHERE gender = "${gender}"
-   `)
-   return result[0][0]
+   const averanger = await connection("Actor")
+      .avg("salary")
+      .where({
+         gender: gender
+      })
+   
+   return averanger
 }
 app.get("/actors/gender/avg/:gender", async (req, res) => {
    let errorCode: number = 400;
@@ -151,23 +155,29 @@ app.get("/actors/gender/avg/:gender", async (req, res) => {
 });
 
 // Exercício 3
-// a)
+// b)
+const countActors = async (gender: string): Promise<any> => {
+   const actors = await connection("Actor")
+      .count("*")
+      .where({
+         gender: gender
+      })
+   return actors
+}
 
-
-// app.get("/actors/:id", async (req, res) => {
-//    let errorCode: number = 400;
-//    try {
+app.get("/actor", async (req, res) => {
+   let errorCode: number = 400;
+   try {
+      const gender: string | any = req.query.gender;
       
-      
-//       // const result = await connection.raw(`
-//       //    SELECT * FROM Actor WHERE name = "${req.params.name}"
-//       //    `)
-
-//       const result = await getActorByname(req.params.name);
-//       res.status(200).send(result)
-//    }
-//    catch (error: any) {
-//       res.status(errorCode).send({ message: error.message })
-//    };
+      const result = await countActors(gender);
+      res.status(200).send(result)
+   }
+   catch (error: any) {
+      res.status(errorCode).send({ message: error.message })
+   };
    
-// });
+});
+
+// Exercício 4
+// a)
