@@ -7,6 +7,7 @@ export type addressInfo = {
 }
 
 export type addressUser = {
+   usuario_id: number
    cep: number
    logradouro: string
    numero: string
