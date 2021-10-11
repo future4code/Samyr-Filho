@@ -24,8 +24,9 @@ export class UserAccount {
     getBalance = (): number => this.balance;
     getTransaction = (): Transaction[] => this.transactions;
     addTransaction = (description: string, value: number, date: string) => {
-       const newTransaction = new Transaction(description, value, date)
-      this.transactions.push(newTransaction)
+      const newTransaction = new Transaction(description, value, date)
+      this.transactions.push(newTransaction);
+      this.balance += value;
    }
   
   }
