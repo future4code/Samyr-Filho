@@ -16,6 +16,7 @@ export class UserAccount {
        this.cpf = cpf;
        this.name = name;
        this.age = age;
+       
     }
     getCPF = (): string => this.cpf;
     getName = (): string => this.name;
@@ -23,7 +24,8 @@ export class UserAccount {
     getBalance = (): number => this.balance;
     getTransaction = (): Transaction[] => this.transactions;
     addTransaction = (description: string, value: number, date: string) => {
-
+       const newTransaction = new Transaction(description, value, date)
+      this.transactions.push(newTransaction)
    }
   
   }
