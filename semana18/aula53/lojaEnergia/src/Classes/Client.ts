@@ -13,18 +13,18 @@ export interface Client {
     // Retorna o valor da conta em reais
   }
   export class Client {
-      name: string
-      registrationNumber: number
-      consumedEnergy: number
+        name: string
+        registrationNumber: number
+        consumedEnergy: number
 
-      constructor(name: string, registrationNumber: number, consumedEnergy: number)
-      {
-          this.name = name
-          this.registrationNumber = registrationNumber
-          this.consumedEnergy = consumedEnergy
-      }
+        constructor(name: string, registrationNumber: number, consumedEnergy: number)
+        {
+            this.name = name
+            this.registrationNumber = registrationNumber
+            this.consumedEnergy = consumedEnergy
+        }
 
-      calculateBill() {
+      public calculateBill = () => {
         return 2
       };
   }
