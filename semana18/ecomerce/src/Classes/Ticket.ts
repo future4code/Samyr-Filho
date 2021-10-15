@@ -1,32 +1,41 @@
-import { iTicket } from "../Interfaces/ITicket"
+import { insertProduct, getProducts } from "../data/Products";
+import { idGenaration } from "../function/idGeneration";
+import { iProduct } from "../Interfaces/iProduct";
+import { iTicket } from "../Interfaces/iTicket"
 
 
-export class Ticket implements iTicket {
 
+export class Ticket implements iTicket, iProduct {
+    
 
     constructor(
         private tripOrigin: string,
         private tripDestin: string,
-        private id: number,
-        private name: string,
-        private description: string,
-        private sale: number
+        // private id: number,
+        // private name: string,
+        // private description: string,
+        // private sale: number
+        
     ) { 
         
     }
-    setTripOrigin(value : string){
 
+    insert(name: string, description: string, sale: number){
+        const id = idGenaration()
+        return insertProduct(id, name, description, sale, "Ticket", this.tripOrigin, this.tripDestin)
     };
-    setTripDestin(value: string){
 
-    };
-    setName(value : string){
-        this.name = value
-    };
-    setDescription(value: string){
-        this.description = value
-    };
-    setSale(value: number){
-        this.sale = value
+    list() {
+        return getProducts()
+    }
+
+    insertTicket(name: string, 
+                 description: string, 
+                 sale: number, 
+                 tripOrigin: string, 
+                 tripDestin: string){
+        this.tripOrigin = tripOrigin
+        this.tripDestin = tripDestin
+        this.insert(name, description, sale)
     };
 }

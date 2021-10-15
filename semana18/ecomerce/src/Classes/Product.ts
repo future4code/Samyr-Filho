@@ -1,24 +1,23 @@
-import { iProduct } from "../Interfaces/IProduct"
+import { getProducts, insertProduct } from "../data/Products"
+import { idGenaration } from "../function/idGeneration"
+import { iProduct } from "../Interfaces/iProduct"
+
 
 
 export class Product implements iProduct {
 
 
     constructor(
-        private id: number,
-        private name: string,
-        private description: string,
-        private sale: number
+
     ) { 
         
     }
-    setName(value : string){
-        this.name = value
+    insert(name: string, description: string, sale: number){
+        const id = idGenaration()
+        return insertProduct(id, name, description, sale, "Product", "", "")
     };
-    setDescription(value: string){
-        this.description = value
-    };
-    setSale(value: number){
-        this.sale = value
-    };
+
+    list() {
+        return getProducts()
+    }
 }

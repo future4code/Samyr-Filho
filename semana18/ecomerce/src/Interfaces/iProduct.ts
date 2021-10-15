@@ -1,6 +1,4 @@
 export interface iProduct {
-    
-    setName(value : string): void;
-    setDescription(value: string): void;
-    setSale(value: number): void;
+    insert(name: string, description: string, sale: number): void;
+    list(): any;
 }
