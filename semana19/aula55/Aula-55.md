@@ -16,4 +16,7 @@ B) CREATE TABLE `Aula55_User` (
 EXERCÍCIOS 3
 A) Ela tipifica a chave como sendo uma string pois é o tipo do parâmetro que é solicitado.
 
+EXERCÌCIOS 7
+A) O 'as any' faz com que 'payload' aceite qualquer resultado da função 'verify'. É necessário
+   pois se o token for inválido ele não retornaria o id.
 '''

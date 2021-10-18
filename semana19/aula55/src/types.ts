@@ -7,3 +7,7 @@ export interface user  {
     email: string
     password:string
  }
+ export interface userInfo {
+     id: string
+     email: string
+ }

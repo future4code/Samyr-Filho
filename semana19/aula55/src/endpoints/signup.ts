@@ -15,8 +15,18 @@ export default async function signup(
     const { email, password } = req.body
 
     if (!email || !password) {
-      res.statusCode = 422
-      throw new Error("Preencha os campos 'email' e 'password'")
+        res.statusCode = 422
+        throw "Preencha os campos 'email' e 'password'"
+    }
+
+    if (!email.includes("@")) {
+        res.statusCode = 422
+        throw "'email' inválido"
+    }
+
+    if (password.length < 6){
+        res.statusCode = 400
+        throw "A senha tem que ter no mínimo 6 caracteres"
     }
 
     const [user] = await connection('Aula55_User')
@@ -24,7 +34,7 @@ export default async function signup(
 
     if (user) {
       res.statusCode = 409
-      throw new Error('Email já cadastrado')
+      throw 'Email já cadastrado'
     }
 
     const id: string = new IdGenerator().generateId()
@@ -37,12 +47,15 @@ export default async function signup(
 
     res.status(201).send({ newUser, token })
 
-  } catch (error) {
+  } catch (error: any) {
 
-    if (res.statusCode === 200) {
-      res.status(500).send({ message: "Internal server error" })
+    if (typeof error === "string") {
+
+       res.send(error)
     } else {
-      res.send({ message: error.sqlMessage || error.message })
+       
+       console.log(error.sqlMessage || error.message);
+       res.status(500).send("Ops! Um erro inesperado ocorreu =/")
     }
   }
 }
