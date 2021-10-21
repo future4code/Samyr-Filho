@@ -1,6 +1,7 @@
 import { config } from "dotenv"
 import app from "./app"
 import { followUser } from "./endpoints/followUser"
+import { getFeeds } from "./endpoints/getFeeds"
 import { getRecipe } from "./endpoints/getRecipe"
 import { getUser } from "./endpoints/getUser"
 import { insertRecipe } from "./endpoints/insertRecipe"
@@ -13,10 +14,14 @@ config()
 
 
 app.get("/user/profile", profile)
+
+
+app.get("/user/feed", getFeeds)
 app.get("/user/:id", getUser)
+app.get("/recipe/:id", getRecipe)
+
 app.post("/user/signup", signup)
 app.post("/user/login", login)
 app.post("/user/follow", followUser)
 app.post("/user/unfollow", unfollowUser)
-app.get("/recipe/:id", getRecipe)
 app.post("/recipe", insertRecipe)

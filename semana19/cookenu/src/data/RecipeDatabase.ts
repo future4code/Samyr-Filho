@@ -41,4 +41,24 @@ export class RecipeDatabase extends BaseDatabase {
             }
         }
     }
+    public async findRecipeByFeed (id: string) {
+        try {
+            const recipe = await BaseDatabase.connection.raw(`
+            SELECT RC.id, RC.title, RC.descript, RC.dateCriation, RC.userId, U.name 
+            FROM cookenu_Recipe RC
+            JOIN cookenu_Follow FL ON FL.userToFollowId = RC.userId
+            JOIN cookenu_Users U ON U.id = RC.userID
+            WHERE FL.userId = "${id}"
+            `);
+
+            return recipe[0]
+        }
+        catch(error: any) {
+            if (typeof(error) === "string") {
+                throw error
+            } else {
+                throw error.sqlMessage || error.message;
+            }
+        }
+    }
 }
