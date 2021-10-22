@@ -1,6 +1,8 @@
 
 import { User } from "../model/users/User";
 import { BaseDatabase } from "./BaseDatabase";
+import { FollowDatabase } from "./FollowDatabase";
+import { RecipeDatabase } from "./RecipeDatabase";
 const userTable: string = "cookenu_Users";
 export class UserDatabase extends BaseDatabase {
     
@@ -26,6 +28,24 @@ export class UserDatabase extends BaseDatabase {
                 .select("id", "name", "email")
                 .where({id});
                 return user[0] && User.toUserModel(user[0])
+        }
+        catch(error: any) {
+            if (typeof(error) === "string") {
+                throw error
+            } else {
+                throw error.sqlMessage || error.message;
+            }
+        }
+    }
+
+    public async delUserByID(id: string) {
+        try {
+            await new RecipeDatabase().delRecipeByUserId(id);
+            await new FollowDatabase().delFollowUserId(id);
+            await BaseDatabase.connection(userTable)
+                .delete()
+                .where({id});
+                return 
         }
         catch(error: any) {
             if (typeof(error) === "string") {
@@ -70,5 +90,20 @@ export class UserDatabase extends BaseDatabase {
             }
         }
     }
-    
+    public async putPasswordById (id: string, password: string) {
+        try {
+            await BaseDatabase.connection(userTable)
+                .update(
+                    password
+                )
+                .where(id);
+        }
+        catch(error: any) {
+            if (typeof(error) === "string") {
+                throw error
+            } else {
+                throw error.sqlMessage || error.message;
+            }
+        }
+    }
 }

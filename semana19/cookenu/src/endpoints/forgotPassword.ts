@@ -1,24 +1,19 @@
 import { Request, Response } from "express";
 import { UserDatabase } from "../data/UserDatabase";
 import { Authenticator } from "../services/Authenticator";
-import { HashManager } from "../services/HashManager";
-export async function login(req: Request, res: Response) {
+import { transporter } from "../services/mailTransporter";
+export async function forgotPassword(req: Request, res: Response) {
     try {
-        const { email, password } = req.body
+        const email  = req.body.email
 
-        if (!email || !password) {
+        if (!email) {
             res.statusCode = 422
-            throw "Preencha os campos 'email' e 'password'"
+            throw "Preencha o campo 'email'!"
         }
-        
+
         if (!email.includes("@")) {
             res.statusCode = 422
-            throw "'email' inválido"
-        }
-
-        if (password.length < 6){
-            res.statusCode = 400
-            throw "A senha tem que ter no mínimo 6 caracteres"
+            throw "'email' inválido!"
         }
         const userDatabase = new UserDatabase();
         const user = await userDatabase.findUserByEmail(email);
@@ -26,15 +21,26 @@ export async function login(req: Request, res: Response) {
             res.statusCode = 409
             throw 'Email não cadastrado'
         }
-        
-        const passwordIsCorrect = new HashManager().compareHash(password, user.getPassword());
-
-        if(!passwordIsCorrect){
-            res.statusCode = 401
-            throw 'Email ou senha não conferem!'
-        }
         const token = new Authenticator().generateToken({ id: user.getId(), role: user.getRole() })
-        res.status(200).send({"access_token": token})
+
+        transporter.sendMail({
+            from: process.env.NODEMAILER_USER,
+            to: [
+               "samyrh@schissa.com.br"
+            ],
+            subject: "Recuperação de senha",
+            html: `
+            <a href=" http://localhost:3003/user/putpassword/${token}">
+                <button>
+                    Redefinir
+                </button>
+            </a>
+            ` ,
+            text: `
+               
+            `
+         })
+         res.status(200).send("Email enviado!")
     }
     catch (error: any) {
         if (typeof(error) === "string") {

@@ -29,7 +29,7 @@ export class RecipeDatabase extends BaseDatabase {
     public async findRecipeById (id: string) {
         try {
             const recipe = await BaseDatabase.connection(tableName)
-                .select('id', 'title', 'descript', 'dateCriation')
+                .select('id', 'userId', 'title', 'descript', 'dateCriation')
                 .where({id});
             return recipe[0] && Recipe.toRecipeModel(recipe[0])
         }
@@ -52,6 +52,23 @@ export class RecipeDatabase extends BaseDatabase {
             `);
 
             return recipe[0]
+        }
+        catch(error: any) {
+            if (typeof(error) === "string") {
+                throw error
+            } else {
+                throw error.sqlMessage || error.message;
+            }
+        }
+    }
+    public async putRecipeById (id: string, title: string, descript: string) {
+        try {
+            await BaseDatabase.connection(tableName)
+                .update({
+                    'title': title,
+                    'descript': descript
+                })
+                .where({'id': id});
         }
         catch(error: any) {
             if (typeof(error) === "string") {
