@@ -1,4 +1,4 @@
-import { Follow } from "../model/follows/follow";
+import { Follow } from "../model/follows/Follow";
 import { IdGenerator } from "../services/IdGenerator";
 import { BaseDatabase } from "./BaseDatabase";
 const tableName = "cookenu_Follow"
@@ -55,6 +55,21 @@ export class FollowDatabase extends BaseDatabase {
             .select("*")
             .where({userId :`${userId}`, userToFollowId: `${followingUserId}`})
         return usersFollow[0] && Follow.toFollowModel(usersFollow[0])
+        }
+        catch (error: any) {
+            if (typeof(error) === "string") {
+                throw error
+            } else {
+                throw error.sqlMessage || error.message;
+            }
+        }
+    }
+    public async delFollowUserId(userId: string){
+        try {
+            await BaseDatabase.connection.raw(`
+                DELETE FROM ${tableName} 
+                WHERE userId = "${userId}" OR userId = "${userId}"
+            `)
         }
         catch (error: any) {
             if (typeof(error) === "string") {

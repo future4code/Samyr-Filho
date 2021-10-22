@@ -1,9 +1,12 @@
+import { USER_ROLES } from "../../types";
+
 export class User {
     constructor(
         private id: string,
         private name: string,
         private email: string,
-        private password : string
+        private password : string,
+        private role: USER_ROLES
     ) {
 
     }
@@ -19,13 +22,17 @@ export class User {
     getPassword(){
         return this.password
     }
+    getRole(){
+        return this.role
+    }
     
     static toUserModel(data: any): User {
         return new User(
             data.id, 
             data.name, 
             data.email, 
-            data.password
+            data.password,
+            data.role
             );
     }
 }

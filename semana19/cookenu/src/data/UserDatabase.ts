@@ -43,7 +43,8 @@ export class UserDatabase extends BaseDatabase {
                 id: user.getId(),
                 name: user.getName(),
                 email: user.getEmail(),
-                password: user.getPassword()
+                password: user.getPassword(),
+                role: user.getRole()
             }); 
         }
         catch(error: any) {

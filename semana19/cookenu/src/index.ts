@@ -1,5 +1,6 @@
 import { config } from "dotenv"
 import app from "./app"
+import { delRecipe } from "./endpoints/delRecipe"
 import { followUser } from "./endpoints/followUser"
 import { getFeeds } from "./endpoints/getFeeds"
 import { getRecipe } from "./endpoints/getRecipe"
@@ -25,3 +26,4 @@ app.post("/user/login", login)
 app.post("/user/follow", followUser)
 app.post("/user/unfollow", unfollowUser)
 app.post("/recipe", insertRecipe)
+app.delete("/recipe", delRecipe)

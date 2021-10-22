@@ -61,4 +61,32 @@ export class RecipeDatabase extends BaseDatabase {
             }
         }
     }
+    public async delRecipeById(id: string){
+        try {
+            await BaseDatabase.connection(tableName)
+                .delete()
+                .where("id", id)
+                
+        } catch (error: any) {
+            if (typeof(error) === "string") {
+                throw error
+            } else {
+                throw error.sqlMessage || error.message;
+            }
+        }
+    }
+    public async delRecipeByUserId(userId: string){
+        try {
+            await BaseDatabase.connection(tableName)
+                .delete()
+                .where("UserId", userId)
+                
+        } catch (error: any) {
+            if (typeof(error) === "string") {
+                throw error
+            } else {
+                throw error.sqlMessage || error.message;
+            }
+        }
+    }
 }

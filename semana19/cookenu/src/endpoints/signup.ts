@@ -6,11 +6,11 @@ import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
 export async function signup(req: Request, res: Response) {
     try {
-        const { name, email, password } = req.body
+        const { name, email, password, role } = req.body
 
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !role) {
             res.statusCode = 422
-            throw "Preencha os campos 'name', 'email' e 'password'"
+            throw "Preencha os campos 'name', 'email', 'password' e 'role'"
         }
 
         if (!email.includes("@")) {
@@ -30,9 +30,9 @@ export async function signup(req: Request, res: Response) {
         }
         const id: string = new IdGenerator().generateId()
         const cipherPassword = new HashManager().generateHash(password);
-        const newwUser = new User(id, name, email, cipherPassword);
+        const newwUser = new User(id, name, email, cipherPassword, role);
         await userDatabase.createUser(newwUser);
-        const token = new Authenticator().generateToken({ id })
+        const token = new Authenticator().generateToken({ id, role })
         res.status(200).send({"access_token": token})
     }
     catch (error: any) {

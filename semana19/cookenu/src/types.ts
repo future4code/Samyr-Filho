@@ -1,5 +1,11 @@
 export interface authenticationData{
-    id: string
+    id: string,
+    role: USER_ROLES
+  }
+
+  export enum USER_ROLES {
+    NORMAL = "NORMAL",
+    ADMIN = "ADMIN"
   }
 
 export interface userInfo  {
@@ -7,4 +13,5 @@ export interface userInfo  {
     name: string
     email: string
     password: string
+    role: USER_ROLES
  }
