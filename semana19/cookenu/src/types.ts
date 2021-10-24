@@ -15,3 +15,6 @@ export interface userInfo  {
     password: string
     role: USER_ROLES
  }
+
+ export const userTableName = "cookenu_Users"
+ export const recipeTableName = "cookenu_Recipe"

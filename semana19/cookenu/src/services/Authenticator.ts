@@ -1,9 +1,10 @@
-import dotenv from "dotenv"
+import { config } from "dotenv"
 import * as jwt from "jsonwebtoken";
 import { authenticationData } from "../types"
 
-dotenv.config()
+config()
 
+const { JWT_KEY, ACCESS_TOKEN_EXPIRES_IN} = process.env
 
 export class Authenticator {
 
@@ -13,8 +14,8 @@ export class Authenticator {
 
     const token = jwt.sign(
       payload,
-      process.env.JWT_KEY as string,
-      { expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN }
+      JWT_KEY! as string,
+      { expiresIn: ACCESS_TOKEN_EXPIRES_IN! }
     )
 
     return token
@@ -27,8 +28,8 @@ export class Authenticator {
 
       const tokenData = jwt.verify(
         token,
-        process.env.JWT_KEY as string
-      ) as jwt.JwtPayload
+        JWT_KEY! as string
+      ) as authenticationData // jwt.JwtPayload
 
       return {
         id: tokenData.id,

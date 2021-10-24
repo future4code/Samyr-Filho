@@ -1,15 +1,18 @@
+import { config } from "dotenv"
 import nodemailer from "nodemailer"
-import dotenv from "dotenv"
 
-dotenv.config()
+
+config()
+
+const { NODEMAILER_USER, NODEMAILER_PASSWORD} = process.env
 
 export const transporter = nodemailer.createTransport({
    host: "smtp.terra.com.br",
    port: 587,
    secure: false,
    auth: {
-      user: process.env.NODEMAILER_USER,
-      pass: process.env.NODEMAILER_PASSWORD
+      user: NODEMAILER_USER,
+      pass: NODEMAILER_PASSWORD
    },
    tls: { ciphers: "SSLv3" }
 })

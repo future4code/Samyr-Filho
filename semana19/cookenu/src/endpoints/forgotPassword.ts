@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { UserDatabase } from "../data/UserDatabase";
 import { Authenticator } from "../services/Authenticator";
-import { transporter } from "../services/mailTransporter";
+import { transporter } from "../services/MailTransporter";
+
 export async function forgotPassword(req: Request, res: Response) {
     try {
         const email  = req.body.email
