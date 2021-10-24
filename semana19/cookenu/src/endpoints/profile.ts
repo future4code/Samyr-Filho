@@ -11,6 +11,10 @@ export async function profile(req: Request, res: Response) {
         }
         const userDatabase = new UserDatabase();
         const user = await userDatabase.findUserByID(tokenData.id);
+        if(!user){
+            res.statusCode = 409
+            throw "Usuário não encontrado!"
+        }
         res.status(200).send(user)
     }
     catch (error: any) {

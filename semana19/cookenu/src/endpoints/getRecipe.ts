@@ -16,6 +16,10 @@ export async function getRecipe(req: Request, res: Response) {
         }
         const recipeDatabase = new RecipeDatabase();
         const recipe = await recipeDatabase.findRecipeById(id);
+        if(!recipe){
+            res.statusCode = 409
+            throw "Receita não encontrada!"
+        }
         const result = {
             id: recipe.getId(),
             title: recipe.getTitle(),

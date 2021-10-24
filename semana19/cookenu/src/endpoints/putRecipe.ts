@@ -23,6 +23,10 @@ export async function putRecipe(req: Request, res: Response): Promise<void> {
         }
         const recipeDatabase = new RecipeDatabase();
         const recipe = await recipeDatabase.findRecipeById(id);
+        if(!recipe){
+            res.statusCode = 409
+            throw "Receita não encontrada!"
+        }
         if((tokenData.id !== recipe.getUserId()) && (tokenData.role !== "ADMIN")){
             res.statusCode = 403
             throw "Você não é o proprietário desta receita e não é administrador. Operação não efetuada"

@@ -29,10 +29,10 @@ export async function signup(req: Request, res: Response) {
             throw 'Email já cadastrado'
         }
         const id: string = new IdGenerator().generateId()
-        const cipherPassword = new HashManager().generateHash(password);
+        const cipherPassword: string = new HashManager().generateHash(password);
         const newwUser = new User(id, name, email, cipherPassword, role);
         await userDatabase.createUser(newwUser);
-        const token = new Authenticator().generateToken({ id, role })
+        const token: string = new Authenticator().generateToken({ id, role })
         res.status(200).send({"access_token": token})
     }
     catch (error: any) {
