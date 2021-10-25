@@ -1,18 +1,19 @@
 import { Follow } from "../model/follows/Follow";
 import { IdGenerator } from "../services/IdGenerator";
+import { followTableName } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
-const tableName = "cookenu_Follow"
+
 export class FollowDatabase extends BaseDatabase {
     public async followUser(userId: string, userToFollowId:string){
         try {
             const follow = await this.findFollowUser(userId, userToFollowId);
             if(follow) {
-                await BaseDatabase.connection(tableName)
+                await BaseDatabase.connection(followTableName)
                     .update("follow", true)
                     .where("id", follow.getId())
             } else {
                 const id: string = new IdGenerator().generateId()
-                await BaseDatabase.connection(tableName)
+                await BaseDatabase.connection(followTableName)
                     .insert({
                         id: id,
                         userId: userId,
@@ -35,7 +36,7 @@ export class FollowDatabase extends BaseDatabase {
         try {
             const follow = await this.findFollowUser(userId, userToFollowId);
             if(follow) {
-                await BaseDatabase.connection(tableName)
+                await BaseDatabase.connection(followTableName)
                     .update("follow", false)
                     .where("id", follow.getId())
             }
@@ -51,7 +52,7 @@ export class FollowDatabase extends BaseDatabase {
 
     public async findFollowUser(userId: string, followingUserId: string){
         try {
-        const usersFollow = await BaseDatabase.connection(tableName)
+        const usersFollow = await BaseDatabase.connection(followTableName)
             .select("*")
             .where({userId :`${userId}`, userToFollowId: `${followingUserId}`})
         return usersFollow[0] && Follow.toFollowModel(usersFollow[0])
@@ -67,7 +68,7 @@ export class FollowDatabase extends BaseDatabase {
     public async delFollowUserId(userId: string){
         try {
             await BaseDatabase.connection.raw(`
-                DELETE FROM ${tableName} 
+                DELETE FROM ${followTableName} 
                 WHERE userId = "${userId}" OR userId = "${userId}"
             `)
         }

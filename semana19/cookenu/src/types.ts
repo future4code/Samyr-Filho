@@ -18,3 +18,4 @@ export interface userInfo  {
 
  export const userTableName = "cookenu_Users"
  export const recipeTableName = "cookenu_Recipe"
+ export const followTableName = "cookenu_Follow"

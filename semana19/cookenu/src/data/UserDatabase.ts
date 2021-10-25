@@ -1,14 +1,15 @@
 
 import { User } from "../model/users/User";
+import { userTableName } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
 import { FollowDatabase } from "./FollowDatabase";
 import { RecipeDatabase } from "./RecipeDatabase";
-const userTable: string = "cookenu_Users";
+
 export class UserDatabase extends BaseDatabase {
     
     public async findUserByEmail(email: string): Promise<User> {
         try {
-            const user = await BaseDatabase.connection(userTable)
+            const user = await BaseDatabase.connection(userTableName)
                 .select("*")
                 .where({email});
                 return user[0] && User.toUserModel(user[0])
@@ -24,7 +25,7 @@ export class UserDatabase extends BaseDatabase {
 
     public async findUserByID(id: string): Promise<User> {
         try {
-            const user = await BaseDatabase.connection(userTable)
+            const user = await BaseDatabase.connection(userTableName)
                 .select("id", "name", "email")
                 .where({id});
                 return user[0] && User.toUserModel(user[0])
@@ -42,7 +43,7 @@ export class UserDatabase extends BaseDatabase {
         try {
             await new RecipeDatabase().delRecipeByUserId(id);
             await new FollowDatabase().delFollowUserId(id);
-            await BaseDatabase.connection(userTable)
+            await BaseDatabase.connection(userTableName)
                 .delete()
                 .where({id});
                 return 
@@ -58,7 +59,7 @@ export class UserDatabase extends BaseDatabase {
 
     public async createUser (user: User) {
         try {
-            await BaseDatabase.connection(userTable)
+            await BaseDatabase.connection(userTableName)
             .insert({
                 id: user.getId(),
                 name: user.getName(),
@@ -78,7 +79,7 @@ export class UserDatabase extends BaseDatabase {
 
     public async getAllUsers(): Promise<User[]> {
         try {
-            const users = await BaseDatabase.connection(userTable)
+            const users = await BaseDatabase.connection(userTableName)
                 .select("id", "name", "email", "role");
                 return users.map((user => User.toUserModel(user)))
         }
@@ -92,7 +93,7 @@ export class UserDatabase extends BaseDatabase {
     }
     public async putPasswordById (id: string, password: string) {
         try {
-            await BaseDatabase.connection(userTable)
+            await BaseDatabase.connection(userTableName)
                 .update(
                     password
                 )

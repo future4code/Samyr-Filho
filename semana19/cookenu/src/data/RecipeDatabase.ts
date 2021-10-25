@@ -1,7 +1,8 @@
 
 import { Recipe } from "../model/recipes/Recipe";
+import { recipeTableName } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
-const tableName: string = "cookenu_Recipe";
+
 export class RecipeDatabase extends BaseDatabase {
     
 
@@ -9,7 +10,7 @@ export class RecipeDatabase extends BaseDatabase {
 
         try {
             
-            await BaseDatabase.connection(tableName)
+            await BaseDatabase.connection(recipeTableName)
             .insert({
                 id: recipe.getId(),
                 userId: recipe.getUserId(),
@@ -28,7 +29,7 @@ export class RecipeDatabase extends BaseDatabase {
     }
     public async findRecipeById (id: string) {
         try {
-            const recipe = await BaseDatabase.connection(tableName)
+            const recipe = await BaseDatabase.connection(recipeTableName)
                 .select('id', 'userId', 'title', 'descript', 'dateCriation')
                 .where({id});
             return recipe[0] && Recipe.toRecipeModel(recipe[0])
@@ -63,7 +64,7 @@ export class RecipeDatabase extends BaseDatabase {
     }
     public async putRecipeById (id: string, title: string, descript: string) {
         try {
-            await BaseDatabase.connection(tableName)
+            await BaseDatabase.connection(recipeTableName)
                 .update({
                     'title': title,
                     'descript': descript
@@ -80,7 +81,7 @@ export class RecipeDatabase extends BaseDatabase {
     }
     public async delRecipeById(id: string){
         try {
-            await BaseDatabase.connection(tableName)
+            await BaseDatabase.connection(recipeTableName)
                 .delete()
                 .where("id", id)
                 
@@ -94,7 +95,7 @@ export class RecipeDatabase extends BaseDatabase {
     }
     public async delRecipeByUserId(userId: string){
         try {
-            await BaseDatabase.connection(tableName)
+            await BaseDatabase.connection(recipeTableName)
                 .delete()
                 .where("UserId", userId)
                 

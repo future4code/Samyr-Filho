@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { RecipeDatabase } from "../data/RecipeDatabase";
-import { UserDatabase } from "../data/UserDatabase";
 import { Authenticator } from "../services/Authenticator";
 export async function getFeeds(req: Request, res: Response) {
     try {
