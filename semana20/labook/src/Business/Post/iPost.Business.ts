@@ -1,7 +1,5 @@
-export enum POST_TYPE {
-    EVENTO = "EVENTO",
-    NORMAL = "NORMAL"
-}
+import { POST_TYPE } from "../../Model/Post";
+
 
 export interface Post {
     id: string,
@@ -15,4 +13,9 @@ export interface PostInputDTO {
     photoURL: string,
     creationDate: Date,
     type: POST_TYPE
+}
+
+export interface PostMethods {
+    create(post: PostInputDTO): Promise<void>
+    findById(id: string): Promise<Post>
 }

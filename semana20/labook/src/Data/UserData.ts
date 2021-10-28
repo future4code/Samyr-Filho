@@ -1,68 +1,35 @@
-
-import { user, userTableName } from "../types";
+import { UserMethods } from "../Business/User/iUserBusiness";
+import { User } from "../Model/User";
 import { BaseDatabase } from "./BaseDatabase";
-export class UserData extends BaseDatabase {
+export class UserData extends BaseDatabase implements UserMethods {
     
-    public async findUserByEmail(email: string): Promise<user> {
-        try {
-            const user: user[] = await BaseDatabase.connection(userTableName)
-                .select("*")
-                .where({email});
-                return user[0]
-        }
-        catch(error: any) {
-            if (typeof(error) === "string") {
-                throw error
-            } else {
-                throw error.sqlMessage || error.message;
-            }
-        }
-    }
+    protected usersTableName = "LaBook_Users"
 
-    public async delUserByID(id: string) {
-        try {
-            await BaseDatabase.connection(userTableName)
-                .delete()
-                .where({id});
-                return 
-        }
-        catch(error: any) {
-            if (typeof(error) === "string") {
-                throw error
-            } else {
-                throw error.sqlMessage || error.message;
-            }
-        }
-    }
+    
 
-    public async createUser (user: user) {
+    public async create(user: User) {
         try {
-            await BaseDatabase.connection(userTableName)
+            await BaseDatabase.connection(this.usersTableName)
             .insert(
                 user
             ); 
+            return user
         }
         catch(error: any) {
-            if (typeof(error) === "string") {
-                throw error
-            } else {
                 throw error.sqlMessage || error.message;
-            }
         }
     }
 
-    public async getAllUsers(): Promise<user[]> {
+    public async findByEmail(email: string): Promise<User> {
         try {
-            const users = await BaseDatabase.connection(userTableName)
-                .select("*");
-                return users
+            const user = await BaseDatabase.connection(this.usersTableName)
+                .select("*")
+                .where({email});
+    
+                return user[0] && User.setUser(user[0])
         }
         catch(error: any) {
-            if (typeof(error) === "string") {
-                throw error
-            } else {
                 throw error.sqlMessage || error.message;
-            }
         }
     }
 }

@@ -1,6 +1,6 @@
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import * as jwt from "jsonwebtoken";
-import { authenticationData } from "../types"
+import { authenticationData } from "../Business/User/iUserBusiness";
 
 dotenv.config()
 
@@ -32,8 +32,7 @@ export class Authenticator {
       ) as authenticationData // jwt.JwtPayload
 
       return {
-        id: tokenData.id,
-        role: tokenData.role
+        id: tokenData.id
       }
 
     } catch (error) {
