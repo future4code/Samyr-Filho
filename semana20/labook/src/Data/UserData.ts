@@ -1,9 +1,11 @@
 import { UserMethods } from "../Business/User/iUserBusiness";
 import { User } from "../Model/User";
 import { BaseDatabase } from "./BaseDatabase";
+import { friendsTableName } from "./TableNames";
 export class UserData extends BaseDatabase implements UserMethods {
     
-    protected usersTableName = "LaBook_Users"
+    protected usersTableName = "LaBook_Users";
+    protected firendsTableName = "LaBook_Friends";
 
     
 
@@ -30,6 +32,27 @@ export class UserData extends BaseDatabase implements UserMethods {
         }
         catch(error: any) {
                 throw error.sqlMessage || error.message;
+        }
+    }
+    public async makeFriends (id: string, friendId: string) {
+        try {
+            
+            await BaseDatabase.connection(friendsTableName)
+                .insert({id: id, friendId: friendId})
+            
+        } catch (error: any) {
+            throw error.sqlMessage || error.message
+            
+        }
+    }
+    public async unMakeFriends (id: string, friendId: string) {
+        try {
+            await BaseDatabase.connection(friendsTableName)
+                .delete()
+                .where({"id": id, "friendId": friendId})
+        } catch (error: any) {
+            throw error.sqlMessage || error.message
+            
         }
     }
 }

@@ -1,8 +1,6 @@
-// export interface friends {
-//     id: string,
-//     userId: string,
-//     friendId: string
-// }
+export type authenticationData = {
+    id: string
+}
 
 export class User {
     constructor(

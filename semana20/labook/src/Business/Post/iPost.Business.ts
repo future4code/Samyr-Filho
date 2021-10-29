@@ -1,21 +1,24 @@
-import { POST_TYPE } from "../../Model/Post";
+import { Post, POST_TYPE } from "../../Model/Post";
 
 
-export interface Post {
-    id: string,
+export interface PostInputDTO {
+    userId: string,
     description: string,
     photoURL: string,
-    creationDate: Date,
+    creationDate: string,
     type: POST_TYPE
 }
-export interface PostInputDTO {
+
+export interface PosOutputDTO {
+    id: string,
+    userId: string,
     description: string,
     photoURL: string,
-    creationDate: Date,
+    creationDate: string,
     type: POST_TYPE
 }
 
 export interface PostMethods {
-    create(post: PostInputDTO): Promise<void>
-    findById(id: string): Promise<Post>
+    create(post: Post): Promise<void>
+    findById(id: string): Promise<PosOutputDTO>
 }

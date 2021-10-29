@@ -6,6 +6,7 @@ export enum POST_TYPE {
 export class Post {
     constructor(
         private id: string,
+        private userId: string,
         private description: string,
         private photoURL: string,
         private creationDate: Date,
@@ -13,6 +14,9 @@ export class Post {
     ){}
     getId() : string {
         return this.id
+    }
+    getUserId() : string {
+        return this.userId
     }
     getDescription() : string {
         return this.description
@@ -29,6 +33,7 @@ export class Post {
     static setPost(data: any): Post {
         return new Post(
             data.id, 
+            data.userId,
             data.description, 
             data.photoURL, 
             data.creationDate,

@@ -24,6 +24,7 @@ connection.raw(`
       userId VARCHAR(64) NOT NULL,
       description TEXT NOT NULL,
       photoURL VARCHAR(255) NOT NULL,
+      creationDate DATETIME DEFAULT(CURRENT_DATE()),
       type ENUM("EVENTO", "NORMAL") NOT NULL,
       FOREIGN KEY (userId) REFERENCES LaBook_Users(id)
    );
@@ -35,6 +36,15 @@ connection.raw(`
       userLike BOOLEAN,
       FOREIGN KEY (userId) REFERENCES LaBook_Users(id),
       FOREIGN KEY (postId) REFERENCES LaBook_Posts(id)
+   );
+   CREATE TABLE IF NOT EXISTS ${postsTableName}(
+      id VARCHAR(64) PRIMARY KEY,
+      userId VARCHAR(64) NOT NULL,
+      description TEXT NOT NULL,
+      photoURL VARCHAR(255) NOT NULL,
+      creationDate DATETIME DEFAULT(CURRENT_DATE()),
+      type ENUM("EVENTO", "NORMAL") NOT NULL,
+      FOREIGN KEY (userId) REFERENCES LaBook_Users(id)
    );
 `).then(() => {
    console.log("Table(s) were successfully created!");

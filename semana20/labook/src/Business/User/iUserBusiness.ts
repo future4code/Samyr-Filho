@@ -16,6 +16,8 @@ export interface authenticationData{
     }
 
 export interface UserMethods {
-    create(user: User): Promise<User>
-    findByEmail(email: string): Promise<User | null>
+    create(user: User): Promise<User>;
+    findByEmail(email: string): Promise<User | null>;
+    makeFriends(id: string, friendId: string): Promise<void>;
+    unMakeFriends(id: string, friendId: string): Promise<void>;
 }

@@ -1,12 +1,16 @@
-import { PostInputDTO, PostMethods } from "../Business/Post/iPost.Business";
+import { PosOutputDTO, PostMethods } from "../Business/Post/iPost.Business";
 import { Post } from "../Model/Post";
+
 
 import { BaseDatabase } from "./BaseDatabase";
 
 export class PostData extends BaseDatabase implements PostMethods {
-    protected TABLE_NAME = "LaBook_Post"
-    create = async (post: PostInputDTO) => {
+    protected TABLE_NAME = "LaBook_Posts"
+    create = async (post: Post) => {
         try {
+
+            console.log('Post', post);
+            
             await BaseDatabase
                     .connection(this.TABLE_NAME)
                     .insert(post)
@@ -14,18 +18,19 @@ export class PostData extends BaseDatabase implements PostMethods {
         catch (error){
             throw new Error("Erro ao criar post no banco de dados")
         }
+    return
     }
 
-    findById = async (id: string): Promise<Post> => {
+    findById = async (id: string): Promise<PosOutputDTO> => {
         try {
-            const queryResult: Post = Post.setPost(await BaseDatabase
+            const queryResult = await BaseDatabase
                                 .connection(this.TABLE_NAME)
-                                .select("*")
-                                .where(id))
+                                .select()
+                                .where({id});
             
-            return post
+            return queryResult[0]
         } catch (error) {
-            
+            return null
         }
     }
 }

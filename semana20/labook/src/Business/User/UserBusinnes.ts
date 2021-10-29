@@ -19,23 +19,23 @@ export class UserBusiness {
     }
     async signup(input: any) {
         
-        const { name, email, password, role } = input
+        const { name, email, password } = input
 
-        if (!name || !email || !password || !role) {
-            throw "Preencha os campos 'name', 'email', 'password' e 'role'"
+        if (!name || !email || !password) {
+            throw "Fill in the fields 'name', 'email' and 'password'!"
         }
 
         if (!email.includes("@")) {
-            throw "'email' inválido"
+            throw "'invalid email!"
         }
 
         if (password.length < 6){
-            throw "A senha tem que ter no mínimo 6 caracteres"
+            throw "Password must be at least 6 characters"
         }
         
         const user = await this.userData.findByEmail(email);
         if(user){
-            throw 'Email já cadastrado'
+            throw 'E-mail already registered'
         }
         const id: string = new IdGenerator().generateId()
         const cipherPassword = new HashManager().generateHash(password);
@@ -49,28 +49,49 @@ export class UserBusiness {
         const { email, password } = input
 
         if (!email || !password) {
-            throw "Preencha os campos 'email' e 'password'"
+            throw "Fill in the fields 'email' and 'password'!"
         }
         
         if (!email.includes("@")) {
-            throw "'email' inválido"
+            throw "invalid email!"
         }
 
         if (password.length < 6){
-            throw "A senha tem que ter no mínimo 6 caracteres"
+            throw "Password must be at least 6 characters"
         }
         
         const user = await this.userData.findByEmail(email);
         if(!user){
-            throw 'Email e senha não conferem'
+            throw 'Email and password do not match!'
         }
         
         const passwordIsCorrect = new HashManager().compareHash(password, user.getPassword())
 
         if(!passwordIsCorrect){
-            throw 'Email ou senha não conferem!'
+            throw 'Email and password do not match!'
         }
         const token = new Authenticator().generateToken({ id: user.getId() })
         return token
+    }
+    async makeFriend(id: string, friendId: string) {
+        try {
+            
+            
+            await this.userData.makeFriends(id, friendId);    
+            console.log("Erro aqui");
+        } catch (error) {
+            throw "Error SQL"
+        }
+        
+    }
+    async unMakeFriend(id: string, friendId: string) {
+        try {
+            
+            await this.userData.unMakeFriends(id, friendId);    
+
+        } catch (error) {
+            throw "Error SQL"
+        }
+        
     }
 }
