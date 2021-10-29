@@ -9,7 +9,7 @@ export interface PostInputDTO {
     type: POST_TYPE
 }
 
-export interface PosOutputDTO {
+export interface PostOutputDTO {
     id: string,
     userId: string,
     description: string,
@@ -17,8 +17,13 @@ export interface PosOutputDTO {
     creationDate: string,
     type: POST_TYPE
 }
+export interface ListPostOutputDTO {
+    list: PostOutputDTO[]
+}
 
 export interface PostMethods {
     create(post: Post): Promise<void>
-    findById(id: string): Promise<PosOutputDTO>
+    findById(id: string): Promise<PostOutputDTO>
+    findByUserId(UserId: string): Promise<any>
+    findByType(type: POST_TYPE): Promise<any>
 }

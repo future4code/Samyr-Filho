@@ -17,7 +17,7 @@ export default class UserController {
             const { name, email, password } = req.body
     
             const token = await this.userBusiness.signup({ name, email, password })
-            res.status(200).send({"token": token})
+            res.status(201).send({"token": token})
         }
         catch (error: any) {
             if (typeof(error) === "string") {
@@ -55,7 +55,7 @@ export default class UserController {
                 throw new Error("Invalid, expired or missing token from header 'Authorization' key")
             }
             await this.userBusiness.makeFriend(isTokenValid.id, friendId)
-
+            res.status(201).send("created friendship!")
         } catch (error: any) {
             if (typeof(error) === "string") {
                 res.send(error)
@@ -75,7 +75,7 @@ export default class UserController {
                 throw new Error("Invalid, expired or missing token from header 'Authorization' key")
             }
             await this.userBusiness.unMakeFriend(isTokenValid.id, friendId)
-
+            res.status(200).send("Friendship removed!")
         } catch (error: any) {
             if (typeof(error) === "string") {
                 res.send(error)

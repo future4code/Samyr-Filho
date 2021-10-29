@@ -34,22 +34,34 @@ export class UserData extends BaseDatabase implements UserMethods {
                 throw error.sqlMessage || error.message;
         }
     }
-    public async makeFriends (id: string, friendId: string) {
+    public async findFriendByIdFriend(userId: string, friendId: string): Promise<User> {
         try {
-            
-            await BaseDatabase.connection(friendsTableName)
-                .insert({id: id, friendId: friendId})
+            const user = await BaseDatabase.connection(this.firendsTableName)
+                .select("*")
+                .where({userId, friendId});
+    
+                return user[0] && User.setUser(user[0])
+        }
+        catch(error: any) {
+                throw error.sqlMessage || error.message;
+        }
+    }
+    public async makeFriends (userId: string, friendId: string) {
+        try {
+
+            await BaseDatabase.connection(this.firendsTableName)
+                .insert({userId: userId, friendId: friendId})
             
         } catch (error: any) {
             throw error.sqlMessage || error.message
             
         }
     }
-    public async unMakeFriends (id: string, friendId: string) {
+    public async unMakeFriends (userId: string, friendId: string) {
         try {
             await BaseDatabase.connection(friendsTableName)
                 .delete()
-                .where({"id": id, "friendId": friendId})
+                .where({"userId": userId, "friendId": friendId})
         } catch (error: any) {
             throw error.sqlMessage || error.message
             

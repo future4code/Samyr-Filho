@@ -73,25 +73,21 @@ export class UserBusiness {
         const token = new Authenticator().generateToken({ id: user.getId() })
         return token
     }
-    async makeFriend(id: string, friendId: string) {
-        try {
-            
-            
-            await this.userData.makeFriends(id, friendId);    
-            console.log("Erro aqui");
-        } catch (error) {
-            throw "Error SQL"
+    async makeFriend(UserId: string, friendId: string) {
+        const user = await this.userData.findFriendByIdFriend(UserId, friendId);
+        if(user){
+            throw "friendship already exists!"
         }
-        
-    }
-    async unMakeFriend(id: string, friendId: string) {
-        try {
-            
-            await this.userData.unMakeFriends(id, friendId);    
+        await this.userData.makeFriends(UserId, friendId);
 
-        } catch (error) {
-            throw "Error SQL"
-        }
+    }
+    async unMakeFriend(UserId: string, friendId: string) {
         
+        const user = await this.userData.findFriendByIdFriend(UserId, friendId);
+        if(!user){
+            throw "User is not your friend!"
+        }
+        await this.userData.unMakeFriends(UserId, friendId);    
+
     }
 }

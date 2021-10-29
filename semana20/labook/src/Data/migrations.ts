@@ -1,5 +1,5 @@
 import knex from "knex";
-import { commentsPostsTableName, postsTableName, usersTableName } from "./TableNames";
+import { commentsPostsTableName, friendsTableName, postsTableName, usersTableName } from "./TableNames";
 
 const connection = knex({
    client: 'mysql',
@@ -37,14 +37,11 @@ connection.raw(`
       FOREIGN KEY (userId) REFERENCES LaBook_Users(id),
       FOREIGN KEY (postId) REFERENCES LaBook_Posts(id)
    );
-   CREATE TABLE IF NOT EXISTS ${postsTableName}(
-      id VARCHAR(64) PRIMARY KEY,
+   CREATE TABLE IF NOT EXISTS ${friendsTableName}(
       userId VARCHAR(64) NOT NULL,
-      description TEXT NOT NULL,
-      photoURL VARCHAR(255) NOT NULL,
-      creationDate DATETIME DEFAULT(CURRENT_DATE()),
-      type ENUM("EVENTO", "NORMAL") NOT NULL,
-      FOREIGN KEY (userId) REFERENCES LaBook_Users(id)
+      friendId VARCHAR(64) NOT NULL,
+      FOREIGN KEY (userId) REFERENCES LaBook_Users(id),
+      FOREIGN KEY (friendId) REFERENCES LaBook_Users(id)
    );
 `).then(() => {
    console.log("Table(s) were successfully created!");

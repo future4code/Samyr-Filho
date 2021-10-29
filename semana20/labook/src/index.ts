@@ -12,6 +12,10 @@ const postController = new PostController();
 app.post("/users/signup", userController.signup)
 app.post("/users/login", userController.login)
 app.post("/posts", postController.create)
+
+app.get("/posts", postController.findPostByUserId)
+
+app.get("/posts/type", postController.findPostByType)
 app.get("/posts/:id", postController.findPostById)
 app.post("/user/friend/:friendId", userController.makeFriend)
 app.delete("/user/friend/:friendId", userController.unMakeFriend)
