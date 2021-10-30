@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { ListPostOutputDTO, PostInputDTO, PostOutputDTO } from "../../Business/Post/iPost.Business";
+import { PostInputDTO, PostOutputDTO } from "../../Business/Post/iPost.Business";
 import { PostBusiness } from "../../Business/Post/Post.Business";
 import { authenticationData } from "../../Business/User/iUserBusiness";
 import { PostData } from "../../Data/PostData";
-import { Post, POST_TYPE } from "../../Model/Post";
+import { POST_TYPE } from "../../Model/Post";
 import { Authenticator } from "../../services/Authenticator";
 
 export class PostController {

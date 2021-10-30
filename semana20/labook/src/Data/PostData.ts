@@ -3,15 +3,17 @@ import { Post, POST_TYPE } from "../Model/Post";
 
 
 import { BaseDatabase } from "./BaseDatabase";
+import { likesPostTableName, postsTableName } from "./TableNames";
 
 export class PostData extends BaseDatabase implements PostMethods {
-    protected TABLE_NAME = "LaBook_Posts"
+    protected POST_TABLE_NAME = postsTableName;
+    protected LIKEPOST_TABLE_NAME = likesPostTableName;
     create = async (post: Post) => {
         try {
 
             
             await BaseDatabase
-                    .connection(this.TABLE_NAME)
+                    .connection(this.POST_TABLE_NAME)
                     .insert(post)
         }
         catch (error){
@@ -23,7 +25,7 @@ export class PostData extends BaseDatabase implements PostMethods {
     findById = async (id: string): Promise<PostOutputDTO> => {
         try {
             const queryResult = await BaseDatabase
-                                .connection(this.TABLE_NAME)
+                                .connection(this.POST_TABLE_NAME)
                                 .select()
                                 .where({id});
             
@@ -36,7 +38,7 @@ export class PostData extends BaseDatabase implements PostMethods {
         try {
             
             const queryResult = await BaseDatabase
-                                .connection(this.TABLE_NAME)
+                                .connection(this.POST_TABLE_NAME)
                                 .select()
                                 .where({UserId: UserId})
                                 .orderBy("creationDate", "desc");
@@ -49,7 +51,7 @@ export class PostData extends BaseDatabase implements PostMethods {
         try {
             
             const queryResult = await BaseDatabase
-                                .connection(this.TABLE_NAME)
+                                .connection(this.POST_TABLE_NAME)
                                 .select()
                                 .where({type: type})
                                 .orderBy("creationDate", "desc");
