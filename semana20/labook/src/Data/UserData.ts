@@ -1,4 +1,4 @@
-import { UserMethods } from "../Business/User/iUserBusiness";
+import { UserMethods } from "../Business/User/iUser.Business";
 import { User } from "../Model/User";
 import { BaseDatabase } from "./BaseDatabase";
 import { friendsTableName, usersTableName } from "./TableNames";
@@ -27,6 +27,18 @@ export class UserData extends BaseDatabase implements UserMethods {
             const user = await BaseDatabase.connection(this.USERS_TABLE_NAME)
                 .select("*")
                 .where({email});
+    
+                return user[0] && User.setUser(user[0])
+        }
+        catch(error: any) {
+                throw error.sqlMessage || error.message;
+        }
+    }
+    public async findById(id: string): Promise<User> {
+        try {
+            const user = await BaseDatabase.connection(this.USERS_TABLE_NAME)
+                .select("*")
+                .where({id});
     
                 return user[0] && User.setUser(user[0])
         }

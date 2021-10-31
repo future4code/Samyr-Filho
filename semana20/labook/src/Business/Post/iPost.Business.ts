@@ -21,9 +21,25 @@ export interface ListPostOutputDTO {
     list: PostOutputDTO[]
 }
 
+export interface CommentPost {
+    id: string,
+    userId: string,
+    postId: string,
+    comment: string
+}
+
+export interface CommentsPostInputDTO {
+    userId: string,
+    postId: string,
+    comment: string
+}
+
 export interface PostMethods {
     create(post: Post): Promise<void>
     findById(id: string): Promise<PostOutputDTO>
-    findByUserId(UserId: string): Promise<any>
+    findByUserId(UserId: string, page: number): Promise<any>
     findByType(type: POST_TYPE): Promise<any>
+    likePost(postId: string, userId: string): Promise<string>
+    unLikePost(postId: string, userId: string): Promise<string>
+    commentPost(commentPost: CommentPost): Promise<void>;
 }

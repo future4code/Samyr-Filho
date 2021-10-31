@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
-import { authenticationData } from "../../Business/User/iUserBusiness";
-import { UserBusiness } from "../../Business/User/UserBusinnes"
+import { authenticationData } from "../../Business/User/iUser.Business";
+import { UserBusiness } from "../../Business/User/User.Businnes"
 import { UserData } from "../../Data/UserData"
 import { Authenticator } from "../../services/Authenticator";
 

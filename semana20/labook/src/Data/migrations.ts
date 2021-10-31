@@ -1,5 +1,9 @@
 import knex from "knex";
-import { commentsPostsTableName, friendsTableName, likesPostTableName, postsTableName, usersTableName } from "./TableNames";
+import { commentsPostsTableName, 
+   friendsTableName, 
+   likesPostTableName, 
+   postsTableName, 
+   usersTableName } from "./TableNames";
 
 const connection = knex({
    client: 'mysql',
@@ -41,11 +45,19 @@ connection.raw(`
       userId VARCHAR(64) NOT NULL,
       friendId VARCHAR(64) NOT NULL,
       FOREIGN KEY (userId) REFERENCES ${usersTableName}(id),
-      FOREIGN KEY (friendId) REFERENCES usersTableName(id)
+      FOREIGN KEY (friendId) REFERENCES ${usersTableName}(id)
    );
    CREATE TABLE IF NOT EXISTS ${likesPostTableName}(
       userId VARCHAR(64) NOT NULL,
       postId VARCHAR(64) NOT NULL,
+      FOREIGN KEY (userId) REFERENCES ${usersTableName}(id),
+      FOREIGN KEY (postId) REFERENCES ${postsTableName}(id)
+   );
+   CREATE TABLE IF NOT EXISTS ${commentsPostsTableName}(
+      id VARCHAR(64) PRIMARY KEY,
+      userId VARCHAR(64) NOT NULL,
+      postId VARCHAR(64) NOT NULL,
+      comment TEXT NOT NULL,
       FOREIGN KEY (userId) REFERENCES ${usersTableName}(id),
       FOREIGN KEY (postId) REFERENCES ${postsTableName}(id)
    );
