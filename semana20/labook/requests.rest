@@ -1,0 +1,84 @@
+POST http://localhost:3003/users/signup
+content-type: application/json
+
+{
+    "name": "Paulo",
+    "email": "Paulo@lbn.com",
+    "password": "123456"
+}
+
+###
+# @name login
+POST http://localhost:3003/users/login
+content-type: application/json
+
+{
+    "email": "carla@lbn.com",
+    "password": "123456"
+}
+
+###
+POST http://localhost:3003/posts
+content-type: application/json
+Authorization: {{login.response.body.token}}
+
+{
+    "description": "Atração Fatal 4",
+    "photoURL": "https://www.adorocinema.com/filmes/filme-3110/",
+    "creationDate": "18/10/2021",
+    "type": "EVENTO"
+}
+
+###
+POST http://localhost:3003/posts/like/6aabb42a-7964-4be5-884a-6b560557d18f
+content-type: application/json
+Authorization: {{login.response.body.token}}
+
+###
+POST http://localhost:3003/posts/comment
+content-type: application/json
+Authorization: {{login.response.body.token}}
+
+{
+    "postId": "6aabb42a-7964-4be5-884a-6b560557d18f",
+    "comment": "Achei o máximo"
+}
+
+###
+DELETE http://localhost:3003/posts/like/6aabb42a-7964-4be5-884a-6b560557d18f
+content-type: application/json
+Authorization: {{login.response.body.token}}
+
+
+###
+GET http://localhost:3003/posts/24dd0cd1-07bb-4267-b9d5-51c800b64a0
+content-type: application/json
+Authorization: {{login.response.body.token}}
+
+###
+GET http://localhost:3003/posts
+content-type: application/json
+query-params: page=1
+Authorization: {{login.response.body.token}}
+
+
+###
+
+GET http://localhost:3003/posts/type
+content-type: application/json
+Authorization: {{login.response.body.token}}
+
+
+{
+    "type": "EVENTO"
+}
+
+###
+POST http://localhost:3003/user/friend/adf87381-0676-4c3e-ac83-fe70d1209a72
+content-type: application/json
+Authorization: {{login.response.body.token}}
+
+
+###
+DELETE http://localhost:3003/user/friend/adf87381-0676-4c3e-ac83-fe70d1209a72
+Authorization: {{login.response.body.token}}
