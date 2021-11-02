@@ -1,9 +1,8 @@
 import knex from "knex";
-import { commentsPostsTableName, 
-   friendsTableName, 
-   likesPostTableName, 
-   postsTableName, 
-   usersTableName } from "./TableNames";
+import { pokemonTableName } from "./TableNames";
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const connection = knex({
    client: 'mysql',
@@ -17,50 +16,39 @@ const connection = knex({
    }
 })
 connection.raw(`
-   CREATE TABLE IF NOT EXISTS ${usersTableName}(
-      id VARCHAR(64) PRIMARY KEY,
+   CREATE TABLE IF NOT EXISTS ${pokemonTableName}(
+      id INT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
-      email VARCHAR(255) NOT NULL UNIQUE,
-      password VARCHAR(64) NOT NULL
+      Pokedex_Number INT NOT NULL,
+      Img_name INTEGER NOT NULL,
+      Generation INTEGER NOT NULL,
+      Evolution_Stage INTEGER NOT NULL,
+      Evolved BOOLEAN,
+      FamilyID INTEGER NOT NULL,
+      Cross_Gen BOOLEAN,
+      Type1 VARCHAR(255),
+      Type2 VARCHAR(255),
+      Weather1 VARCHAR(255),
+      Weather2 VARCHAR(255),
+      STAT_TOTAL INTEGER NOT NULL,
+      ATK INTEGER NOT NULL,
+      DEF INTEGER NOT NULL,
+      STA INTEGER NOT NULL,
+      Legendary INTEGER NOT NULL,
+      Aquireable INTEGER NOT NULL,
+      Spawns INTEGER NOT NULL,
+      Regional INTEGER NOT NULL,
+      Raidable INTEGER NOT NULL,
+      Hatchable INTEGER NOT NULL,
+      Shiny INTEGER NOT NULL,
+      Nest INTEGER NOT NULL,
+      New INTEGER NOT NULL,
+      NotGettable INTEGER NOT NULL,
+      Future_Evolve INTEGER NOT NULL,
+      CP40 INTEGER NOT NULL,
+      CP39 INTEGER NOT NULL
    );
-   CREATE TABLE IF NOT EXISTS ${postsTableName}(
-      id VARCHAR(64) PRIMARY KEY,
-      userId VARCHAR(64) NOT NULL,
-      description TEXT NOT NULL,
-      photoURL VARCHAR(255) NOT NULL,
-      creationDate DATETIME DEFAULT(CURRENT_DATE()),
-      type ENUM("EVENTO", "NORMAL") NOT NULL,
-      FOREIGN KEY (userId) REFERENCES ${usersTableName}(id)
-   );
-   CREATE TABLE IF NOT EXISTS ${commentsPostsTableName}(
-      id VARCHAR(64) PRIMARY KEY,
-      userId VARCHAR(64) NOT NULL,
-      postId VARCHAR(64) NOT NULL,
-      comment TEXT NOT NULL,
-      userLike BOOLEAN,
-      FOREIGN KEY (userId) REFERENCES ${usersTableName}(id),
-      FOREIGN KEY (postId) REFERENCES ${postsTableName}(id)
-   );
-   CREATE TABLE IF NOT EXISTS ${friendsTableName}(
-      userId VARCHAR(64) NOT NULL,
-      friendId VARCHAR(64) NOT NULL,
-      FOREIGN KEY (userId) REFERENCES ${usersTableName}(id),
-      FOREIGN KEY (friendId) REFERENCES ${usersTableName}(id)
-   );
-   CREATE TABLE IF NOT EXISTS ${likesPostTableName}(
-      userId VARCHAR(64) NOT NULL,
-      postId VARCHAR(64) NOT NULL,
-      FOREIGN KEY (userId) REFERENCES ${usersTableName}(id),
-      FOREIGN KEY (postId) REFERENCES ${postsTableName}(id)
-   );
-   CREATE TABLE IF NOT EXISTS ${commentsPostsTableName}(
-      id VARCHAR(64) PRIMARY KEY,
-      userId VARCHAR(64) NOT NULL,
-      postId VARCHAR(64) NOT NULL,
-      comment TEXT NOT NULL,
-      FOREIGN KEY (userId) REFERENCES ${usersTableName}(id),
-      FOREIGN KEY (postId) REFERENCES ${postsTableName}(id)
-   );
+   
 `).then(() => {
    console.log("Table(s) were successfully created!");
 }).catch(error => {
