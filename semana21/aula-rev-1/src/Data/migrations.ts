@@ -17,8 +17,8 @@ const connection = knex({
 })
 connection.raw(`
    CREATE TABLE IF NOT EXISTS ${pokemonTableName}(
-      id INT PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
+      RowID INT PRIMARY KEY AUTO_INCREMENT,
+      Name VARCHAR(255) NOT NULL,
       Pokedex_Number INT NOT NULL,
       Img_name INTEGER NOT NULL,
       Generation INTEGER NOT NULL,
