@@ -7,9 +7,9 @@ export class PokemonController {
     constructor(){
         this.pokemonBusiness = new PokemonBusiness();
     }
-    findByRowId = async (req:Request, res: Response) => {
+    findByRowId = async (req:Request, res: Response): Promise<void> => {
         try {
-            const rowId = Number(req.params.rowId);
+            const rowId = req.params.rowId;
             const result = await this.pokemonBusiness.findByRowId(rowId);
             res.status(200).send(result)
         } catch (error) {
@@ -18,11 +18,13 @@ export class PokemonController {
     }
     findByFilter = async (req:Request, res: Response) => {
         try {
-            const type = req.body.type
-            const weather = req.body.weather
-            const page = Number(req.body.page)
-            const result = this.pokemonBusiness.findByFilter(type, weather, page)
-            res.status(200).send(result)
+            const type = String(req.query.type || "%");
+            const weather = String(req.query.weather || "%");
+            const page = Number(req.query.page);
+            
+            
+            const result = this.pokemonBusiness.findByFilter(type, weather, page);
+            res.status(200).send(result);
         } catch (error) {
             res.status(500).send("erro ao buscar pokemon por Row")
         }

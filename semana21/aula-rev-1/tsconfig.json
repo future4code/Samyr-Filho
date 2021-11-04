@@ -9,6 +9,7 @@
      "esModuleInterop": true,
      "skipLibCheck": true,
      //"source/map": true,
-     "forceConsistentCasingInFileNames": true
+     "forceConsistentCasingInFileNames": true, 
+     "resolveJsonModule": true
   }
 }
