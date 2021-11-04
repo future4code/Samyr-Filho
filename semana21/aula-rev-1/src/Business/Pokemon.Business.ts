@@ -6,9 +6,14 @@ export class PokemonBusiness {
     constructor(pokemonData: PokemonData){
         this.BaseDatabase = pokemonData
     }
-    findByRowId = async (rowId: string): Promise<Pokemon[] | Pokemon> => {
+    findByRowId = async (rowId: any): Promise<Pokemon[] | Pokemon> => {
+        let result
+        if(rowId !== ':rowId'){
+            result = await this.BaseDatabase.findByRowId(rowId);
+        }else{
+            result = await this.BaseDatabase.findAll()
+        }
         
-        const result = await this.BaseDatabase.findByRowId(rowId);
         return result
     }
     findAll = async (): Promise<Pokemon[]> => {
@@ -16,7 +21,7 @@ export class PokemonBusiness {
         return result
     }
     findByFilter = async (type: string, weather: string, page: number): Promise<Pokemon[]> => {
-    
+        
         const result =  await this.BaseDatabase.findByFilter(type, weather, page)
         return result
     }

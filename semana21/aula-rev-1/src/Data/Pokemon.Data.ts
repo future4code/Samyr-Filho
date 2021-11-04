@@ -16,12 +16,17 @@ export class PokemonData extends BaseDatabase{
         const limit = 10
         const offset = limit * (page - 1);
         
+        let limitOffsetStr = ''
+        if(page !== 0){
+            limitOffsetStr = `LIMIT ${limit} OFFSET ${offset}`
+        }
         const result = await BaseDatabase.connection.raw(`
             SELECT * FROM ${pokemonTableName}
             WHERE ((Type1 LIKE "%${type}%") OR (type2 LIKE "%${type}%"))
             AND ((Weather1 LIKE "%${weather}%")OR (Weather2 LIKE "%${weather}%"))
-            LIMIT ${limit} OFFSET ${offset};
+            ${limitOffsetStr};
         `)
         return result[0]
+
     }
 }

@@ -11,14 +11,9 @@ export class PokemonController {
     findByRowId = async (req:Request, res: Response): Promise<void> => {
         try {
             const rowId = req.params.rowId;
-            console.log('controller', rowId)
-            if(rowId){
-                const result = await this.pokemonBusiness.findByRowId(rowId);
-                res.status(200).send(result)
-            } else {
-                const result = await this.pokemonBusiness.findAll();
-                res.status(200).send(result)
-            }
+            
+            const result = await this.pokemonBusiness.findByRowId(rowId);
+            res.status(200).send(result)
             
         } catch (error: any) {
             if (typeof(error) === "string") {
@@ -33,8 +28,10 @@ export class PokemonController {
         try {
             const type = String(req.query.type || "%");
             const weather = String(req.query.weather || "%");
-            const page = Number(req.query.page);
-            
+            let page = Number(req.query.page);
+            if(isNaN(page)){
+                page = 0
+            }
             const result = await this.pokemonBusiness.findByFilter(type, weather, page);
             res.status(200).send(result);
         }catch (error: any) {
