@@ -1,27 +1,23 @@
-import { BaseDatabase } from "../Data/BaseDatabase";
-import { pokemonTableName } from "../Data/TableNames";
-import { Pokemon } from "../Model/Pokemon";
+import { PokemonData } from "../Data/Pokemon.Data";
+import { Pokemon } from "./Model/Pokemon";
 
 export class PokemonBusiness {
-    private BaseDatabase : BaseDatabase
-    constructor(){
-        this.BaseDatabase = new BaseDatabase()
+    private BaseDatabase : PokemonData
+    constructor(pokemonData: PokemonData){
+        this.BaseDatabase = pokemonData
     }
-    findByRowId = async (rowId: string): Promise<Pokemon> => {
-        const result = await this.BaseDatabase.connection(pokemonTableName)
-            .where({rowId});
-        return result[0]
+    findByRowId = async (rowId: string): Promise<Pokemon[] | Pokemon> => {
+        
+        const result = await this.BaseDatabase.findByRowId(rowId);
+        return result
+    }
+    findAll = async (): Promise<Pokemon[]> => {
+        const result = await this.BaseDatabase.findAll();
+        return result
     }
     findByFilter = async (type: string, weather: string, page: number): Promise<Pokemon[]> => {
     
-        const limit = 10
-        const offset = limit * (page - 1);
-        const result =  await this.BaseDatabase.connection.raw(`
-            SELECT * FROM ${pokemonTableName}
-            WHERE (Type1 LIKE "%${type}%") OR (type2 LIKE "%${type}%") 
-            OR (Weather1 LIKE "%${weather}%")OR (Weather2 LIKE "%${weather}%")
-            LIMIT ${limit} OFFSET ${offset};
-        `)
+        const result =  await this.BaseDatabase.findByFilter(type, weather, page)
         return result
     }
 }
