@@ -1,14 +1,8 @@
 import app from "./app"
-import { PokemonController } from "./Controller/Pokemon.Controller"
-import { Router } from "express"
-
-const pokemon = new PokemonController();
+import { pokemonRouter } from "./Controller/Router/pokemonRouter";
 
 
-
-
-app.get("/pokemon/:rowId", pokemon.findByRowId)
-app.get("/pokemon", pokemon.findByFilter)
+app.use("/pokemon", pokemonRouter);
 
 
 
