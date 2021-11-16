@@ -11,6 +11,7 @@ export async function login(req: Request, res: Response) {
             throw "Preencha os campos 'email' e 'password'"
         }
 
+
         if (!email.includes("@")) {
             res.statusCode = 422
             throw "'email' inválido"
@@ -33,8 +34,10 @@ export async function login(req: Request, res: Response) {
             res.statusCode = 401
             throw 'Email ou senha não conferem!'
         }
+
         const token = new Authenticator().generateToken({ id: user.getId() })
         res.status(200).send({message:"Usuário logado com sucesso!", token})
+
     }
     catch (error: any) {
         if (typeof(error) === "string") {
