@@ -1,5 +1,8 @@
 import { Router } from "express";
+import { PokemonController } from "../Pokemon.Controller";
 
-const pokemonRouter = Router()
+export const pokemonRouter = Router();
 
-pokemonRouter.get('/pokemons', )
+const pokemonController = new PokemonController();
+pokemonRouter.get("/:rowId", pokemonController.findByRowId)
+pokemonRouter.get('/', pokemonController.findByFilter)
