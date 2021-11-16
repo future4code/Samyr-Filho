@@ -1,16 +1,19 @@
 import { Request, Response } from "express";
 import { UserDatabase } from "../data/UserDatabase";
-import { User } from "../model/users/User";
-import { Authenticator } from "../services/Authenticator";
+
+import { User } from "../model/users/user";
+
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
 export async function signup(req: Request, res: Response) {
     try {
-        const { name, email, password, role } = req.body
 
-        if (!name || !email || !password || !role) {
+        const { name, email, password } = req.body
+
+        if (!name || !email || !password) {
             res.statusCode = 422
-            throw "Preencha os campos 'name', 'email', 'password' e 'role'"
+            throw "Preencha os campos 'name', 'email'e 'password'"
+
         }
 
         if (!email.includes("@")) {
@@ -29,11 +32,13 @@ export async function signup(req: Request, res: Response) {
             throw 'Email já cadastrado'
         }
         const id: string = new IdGenerator().generateId()
-        const cipherPassword: string = new HashManager().generateHash(password);
-        const newwUser = new User(id, name, email, cipherPassword, role);
-        await userDatabase.createUser(newwUser);
-        const token: string = new Authenticator().generateToken({ id, role })
-        res.status(200).send({"access_token": token})
+
+        const cipherPassword = new HashManager().generateHash(password);
+        const newUser = new User(id, name, email, cipherPassword);
+        await userDatabase.createUser(newUser);
+        const token = new Authenticator().generateToken({ id })
+        res.status(200).send(token)
+
     }
     catch (error: any) {
         if (typeof(error) === "string") {

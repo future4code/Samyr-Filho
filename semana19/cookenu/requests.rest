@@ -1,0 +1,76 @@
+POST http://localhost:3003/user/signup
+content-type: application/json
+
+{
+    "name": "Samyr5",
+    "email": "samyr5@lbn.com",
+    "password": "123456",
+    "role": "ADMIN"
+}
+
+###
+# @name login
+POST http://localhost:3003/user/login
+content-type: application/json
+
+{
+    "email": "samyr5@lbn.com",
+    "password": "123456"
+}
+
+###
+# @name getProfile
+GET http://localhost:3003/user/profile
+Authorization: {{login.response.body.access_token}}
+
+###
+GET http://localhost:3003/user/{{getProfile.response.body.id}}
+Authorization: {{login.response.body.access_token}}
+
+###
+
+POST http://localhost:3003/recipe
+content-type: application/json
+Authorization: {{login.response.body.access_token}}
+
+{
+    "title": "Mac Chiken 2",
+    "description": "dois frangos, alface, queijo, molho especial, cebola, picles num pão com gergilim"
+}
+
+###
+
+POST http://localhost:3003/user/follow
+content-type: application/json
+Authorization: {{login.response.body.access_token}}
+
+{
+    "userToFollowId": "1a60d7c0-a0ad-4f88-8e97-b64a6abaadf9"
+}
+
+###
+GET http://localhost:3003/user/feed
+Authorization: {{login.response.body.access_token}}
+
+###
+DELETE http://localhost:3003/user/f43fe372-f205-4780-bf58-73ad00a97dc3
+Authorization: {{login.response.body.access_token}}
+
+###
+GET http://localhost:3003/recipe/972d51e5-ded5-4010-8d96-d2ff5e4bd15f
+Authorization: {{login.response.body.access_token}}
+
+###
+
+PUT http://localhost:3003/recipe/972d51e5-ded5-4010-8d96-d2ff5e4bd15f
+content-type: application/json
+Authorization: {{login.response.body.access_token}}
+
+{
+    "title": "Big Mac 4",
+    "description": "Quatro hamburgueres, alface, queijo, molho especial, cebola, picles num pão com gergilim"
+}
+
+###
+DELETE http://localhost:3003/recipe/972d51e5-ded5-4010-8d96-d2ff5e4bd15f
+Authorization: {{login.response.body.access_token}}
