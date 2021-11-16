@@ -1,26 +1,28 @@
-import { BaseDatabase } from "../Data/BaseDatabase";
-import { pokemonTableName } from "../Data/TableNames";
-import { Pokemon } from "../Model/Pokemon";
+import { PokemonData } from "../Data/Pokemon.Data";
+import { Pokemon } from "./Model/Pokemon";
 
 export class PokemonBusiness {
-    private BaseDatabase : BaseDatabase
-    constructor(){
-        this.BaseDatabase = new BaseDatabase()
+    private BaseDatabase : PokemonData
+    constructor(pokemonData: PokemonData){
+        this.BaseDatabase = pokemonData
     }
-    findByRowId = async (rowId: number): Promise<Pokemon> => {
-        const result = await this.BaseDatabase.connection(pokemonTableName)
-            .where({rowId});
-        return result[0]
+    findByRowId = async (rowId: any): Promise<Pokemon[] | Pokemon> => {
+        let result
+        if(rowId !== ':rowId'){
+            result = await this.BaseDatabase.findByRowId(rowId);
+        }else{
+            result = await this.BaseDatabase.findAll()
+        }
+        
+        return result
     }
-    findByFilter = async (type: string, Weather: string, page: number): Promise<Pokemon[]> => {
-        const offset = 10 * (page - 1);
-        const result = await this.BaseDatabase.connection(pokemonTableName)
-            .where("Type1", "LIKE", `%${type}%`)
-            .andWhere("Type2", "LIKE", `%${type}%`)
-            .andWhere("Weather1", "LIKE", `%${Weather}%`)
-            .andWhere("Weather2", "LIKE", `%${Weather}%`)
-            .limit(10)
-            .offset(offset)
+    findAll = async (): Promise<Pokemon[]> => {
+        const result = await this.BaseDatabase.findAll();
+        return result
+    }
+    findByFilter = async (type: string, weather: string, page: number): Promise<Pokemon[]> => {
+        
+        const result =  await this.BaseDatabase.findByFilter(type, weather, page)
         return result
     }
 }
