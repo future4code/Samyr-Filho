@@ -1,3 +1,5 @@
+import { USER_ROLES } from "../../types";
+
 export class User {
     constructor(
         private id: string,
