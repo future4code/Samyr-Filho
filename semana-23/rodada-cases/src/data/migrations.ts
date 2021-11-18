@@ -36,11 +36,11 @@ const creationTables = async(): Promise<boolean> => {
     }
 }
 
-const insertContributor = async (): Promise<boolean> => {
+const clearContributor = async (): Promise<boolean> => {
     try {
-        await connection('lama_users').insert(contributorJson);
+        await connection('caseCubo_contributor').delete();
 
-        console.log("Contributors created successfully!");
+        console.log("Contributors cleared successfully!");
         return true;
     } catch (e) {
         const error = e as Error;
@@ -52,5 +52,5 @@ const insertContributor = async (): Promise<boolean> => {
 const closeConnection = () => { connection.destroy(); };
 
 creationTables()
-    .then(insertContributor)
+    .then(clearContributor)
     .finally(closeConnection);

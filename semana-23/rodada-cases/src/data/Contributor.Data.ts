@@ -7,26 +7,31 @@ export class ContributorData extends BaseDatabase implements iContributorBusines
     constructor(){
         super("caseCubo_contributor")
     }
-    async createContributor(input: ContributorModel): Promise<void>{
+    async createContributor(input: ContributorModel): Promise<ShowContributorDTO[]>{
         try {
-            const result = await this.Connection()
-                .insert({
-                    id: input.getId(),
-                    firstName: input.gerFirstName(),
-                    lastName: input.getLastName(),
-                    participation: input.getPArticipation()
-                })
-                .into(this.tableName)
+            // await this.Connection()
+            // .insert(input)
+            // .into(this.tableName);
+
+            const queryResult = await this.Connection()
+            .raw(`
+                 SELECT ctb1.firstName, ctb1.lastName, 
+                 TRUNCATE((ctb1.participation * 100 / ctb2.Total), 0) participation
+                 FROM ${this.tableName} ctb1,
+                 (SELECT SUM(participation) as Total FROM ${this.tableName}) ctb2
+                 ORDER BY participation;
+            `);
+            const result = queryResult[0].map((contributor: ShowContributorDTO)=>{
+                return {firstName: contributor.firstName,
+                        lastName: contributor.lastName,
+                        participation: contributor.participation
+                }
+            })
+            return result as ShowContributorDTO[];
+            
         } catch (error) {
-            throw new BaseError("Error creating record", 500)
+            throw new BaseError("Error creating record!", 500)
         }
     }
-    async getShowContributor(): Promise<ShowContributorDTO>{
-        
-        return {
-            firstName:"1",
-            lastName: "1",
-            participation: 1
-        }
-    }
+    
 }

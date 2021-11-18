@@ -22,9 +22,9 @@ export class ContributorModel {
 }
 
 export interface InputContributorDTO {
-    firstName: string,
-    lastName: string,
-    participation: number
+    firstName: string | undefined,
+    lastName: string | undefined,
+    participation: number | undefined
 }
 
 export interface ShowContributorDTO {
