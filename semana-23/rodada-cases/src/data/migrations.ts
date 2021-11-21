@@ -1,6 +1,6 @@
 import knex from "knex";
 import dotenv from "dotenv"
-import contributorJson from "./contributor.json"
+import contributorJson from "./contributor/contributor.json"
 
 dotenv.config();
 
@@ -24,10 +24,18 @@ const creationTables = async(): Promise<boolean> => {
             id VARCHAR(64) PRIMARY KEY,
             firstName VARCHAR(255),
             lastName VARCHAR(255),
-            participation INT
+            participations INT
         )
         `);
-        console.log("Table created successfully");
+        await connection.raw(`
+        CREATE TABLE IF NOT EXISTS caseCubo_participations (
+            id VARCHAR(64) PRIMARY KEY,
+            contributorId VARCHAR(64),
+            participation VARCHAR(255),
+            FOREIGN KEY(contributorId) REFERENCES caseCubo_contributor(id)
+        )
+        `);
+        console.log("Tables created successfully");
         return true
     } catch (e) {
         const error = e as Error;

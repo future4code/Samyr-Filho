@@ -1,5 +1,5 @@
 import { ContributorBusiness } from "../src/business/Contributor.Business";
-import { ContributorData } from "../src/data/Contributor.Data";
+import { ContributorData } from "../src/data/contributor/Contributor.Data";
 import { ContributorModel } from "../src/model/Contributor.Model";
 import { ContributorDatabaseMock } from "./ContributorDatabaseMock";
 import { IdGeneratorMock } from "./services/idGeneratorMock";
@@ -15,11 +15,10 @@ describe("Testing Create Contributor", ()=>{
         try{
             await contributorBusinessMock.createContributor({
                 firstName: undefined,
-                lastName: "Moura",
-                participation: 30})
+                lastName: "Moura"})
     
         } catch (error) {           
-            expect(error.message).toEqual("Fields 'FirstName', 'LastName' and 'participation' are required!");
+            expect(error.message).toEqual("Fields 'firstName' and 'fastName' are required!");
             expect(error.code).toBe(422);
         }
     })
@@ -28,11 +27,22 @@ describe("Testing Create Contributor", ()=>{
         try{
             const showContributor = await contributorBusinessMock.createContributor({
                 firstName: "Fernanda",
-                lastName: "Moura",
-                participation: 30})
-        expect(showContributor).toEqual(ContributorModel)
+                lastName: "Moura"
+                })
+        expect(showContributor).toEqual({mensagem: "Contributor registered"})
         } catch (error) {           
             
         }
     })
 })
+// describe("Testing the Contribution List", () => {
+//     test("Request success!", async () => {
+//         expect.assertions(1);
+//         try {
+//             const showContributor = await contributorBusinessMock.getContributors();
+//             expect(showContributor).toEqual(ContributorModel)
+//         } catch (error) {
+            
+//         }
+//     })
+// })

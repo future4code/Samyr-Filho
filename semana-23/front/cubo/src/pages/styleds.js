@@ -11,3 +11,7 @@ export const Corpo = styled.div`
     background-color: #ffffff;
     height: 80vh;
 `
+
+export const Tabela = styled.table`
+
+`

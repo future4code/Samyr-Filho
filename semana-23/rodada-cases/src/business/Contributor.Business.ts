@@ -1,4 +1,4 @@
-import { ContributorData } from "../data/Contributor.Data";
+import { ContributorData } from "../data/contributor/Contributor.Data";
 import BaseError from "../error/BaseError";
 import { ContributorModel, InputContributorDTO } from "../model/Contributor.Model";
 import { IdGenerator } from "../services/IdGenerator";
@@ -11,26 +11,28 @@ export class ContributorBusiness  {
 
     }
 
-    async createContributor(
-                            input: InputContributorDTO){
+    async createContributor(input: InputContributorDTO){
         
-        if(!input.firstName || !input.lastName || !input.participation){
-            throw new BaseError("Fields 'FirstName', 'LastName' and 'participation' are required!", 422)
+        if(!input.firstName || !input.lastName){
+            throw new BaseError("Fields 'firstName' and 'fastName' are required!", 422)
         }
         const id = this.idGenarator.generate();
         const newContributor = new ContributorModel(
             id,
             input.firstName as string,
             input.lastName as string,
-            input.participation as number
+            0
         )
-        const result = await this.contributorData
+        await this.contributorData
                         .createContributor(newContributor);
+        return {mensagem: "Contributor registered"}
+    }
+    async getContributorByNames(firstName: string, lastName: string){
         
-                        
+        const result: ContributorModel = await this.contributorData
+                        .getContributorByNames(firstName, lastName);
         return result
     }
-    
 }
 
 export default new ContributorBusiness(

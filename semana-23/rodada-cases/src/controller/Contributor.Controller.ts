@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ContributorBusiness } from "../business/Contributor.Business";
-import { ContributorData } from "../data/Contributor.Data";
+import { ContributorData } from "../data/contributor/Contributor.Data";
 import { IdGenerator } from "../services/IdGenerator";
 
 export default class ContributorController {
@@ -14,13 +14,22 @@ export default class ContributorController {
 
     public createContributor = async (req: Request, res: Response) => {
         try {
-            const {firstName, lastName, participation} = req.body;
+            const {firstName, lastName} = req.body;
             
             const result = await this.contributorBusiness.createContributor({
                                         firstName,
-                                        lastName,
-                                        participation});
+                                        lastName});
             
+            res.status(201).send(result);
+        } catch (error) {
+            console.log(error);
+            res.status(error.Code).send({ message: error.message })
+        }
+    }
+    public getContributorByNames = async (req: Request, res: Response) => {
+        try {
+            const {firstName, lastName} = req.body;
+            const result = await this.contributorBusiness.getContributorByNames(firstName, lastName);
             res.status(201).send(result);
         } catch (error) {
             console.log(error);

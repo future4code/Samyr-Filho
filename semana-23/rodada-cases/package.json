@@ -7,9 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "clear && echo \"Running tests...\" && node ./node_modules/jest/bin/jest.js",
-    "start": "tsc && node --inspect ./build/src/index.js",
-    "dev": "clear && ts-node-dev --transpile-only --ignore-watch node_modules ./src/index.ts",
+    "test": "cls && echo \"Running tests...\" && node ./node_modules/jest/bin/jest.js",
+    "start": "cls && tsc && node --inspect ./build/src/index.js",
+    "dev": "cls && ts-node-dev --transpile-only --ignore-watch node_modules ./src/index.ts",
     "migrations": "ts-node ./src/data/migrations.ts"
   },
   "keywords": [],
@@ -26,9 +26,7 @@
     "knex": "^0.95.14",
     "mysql": "^2.18.1",
     "ts-jest": "^27.0.7",
-    "ts-node": "^10.4.0"
-  },
-  "devDependencies": {
+    "ts-node": "^10.4.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.2",

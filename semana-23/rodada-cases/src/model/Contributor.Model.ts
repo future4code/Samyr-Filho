@@ -8,9 +8,9 @@ export class ContributorModel {
       private participation: number
     ){}
     getId() {this.id}
-    gerFirstName(){this.firstName}
+    getFirstName(){this.firstName}
     getLastName(){this.lastName}
-    getPArticipation(){this.participation}
+    getParticipation(){this.participation}
     static toContributorModel(contributor: any): ContributorModel {
         return new ContributorModel(
             contributor.id,
@@ -23,8 +23,7 @@ export class ContributorModel {
 
 export interface InputContributorDTO {
     firstName: string | undefined,
-    lastName: string | undefined,
-    participation: number | undefined
+    lastName: string | undefined
 }
 
 export interface ShowContributorDTO {
