@@ -29,7 +29,7 @@ export class ContributorBusiness  {
     }
     async getContributorByNames(firstName: string, lastName: string){
         
-        const result: ContributorModel = await this.contributorData
+        const result = await this.contributorData
                         .getContributorByNames(firstName, lastName);
         return result
     }
