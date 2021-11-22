@@ -4,8 +4,8 @@
    "main": "index.js",
    "scripts": {
       "hash-tables": "clear && tsnd --transpile-only --ignore-watch node_modules src/hash_tables",
-      "exercise1": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercise1",
-      "exercise2": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercise2"
+      "exercicio1": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercicio1",
+      "exercicio2": "clear && tsnd --transpile-only --ignore-watch node_modules src/exercicio2"
    },
    "license": "ISC",
    "devDependencies": {
