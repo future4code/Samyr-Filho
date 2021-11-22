@@ -22,17 +22,16 @@ export class User {
     getPassword(){
         return this.password
     }
-    getRole(){
-        return this.role
-    }
-    
     static toUserModel(data: any): User {
         return new User(
             data.id, 
             data.name, 
             data.email, 
-            data.password,
-            data.role
+            data.password
             );
     }
 }
+export enum USER_ROLES {
+    NORMAL = "NORMAL",
+    ADMIN = "ADMIN",
+ }

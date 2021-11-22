@@ -1,0 +1,32 @@
+[
+    {
+        "id": "0001",
+        "firstName": "Carlos",
+        "lastName": "Moura",
+        "participation": 50
+    },
+    {
+        "id": "0002",
+        "firstName": "Fernanda",
+        "lastName": "Oliveira",
+        "participation": 150
+    },
+    {
+        "id": "0004",
+        "firstName": "Hugo",
+        "lastName": "Silva",
+        "participation": 200
+    },
+    {
+        "id": "0005",
+        "firstName": "Eliza",
+        "lastName": "Souza",
+        "participation": 200
+    },
+    {
+        "id": "0007",
+        "firstName": "Anderson",
+        "lastName": "Santos",
+        "participation": 400
+    }
+]

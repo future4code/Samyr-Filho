@@ -1,14 +1,12 @@
-export enum USER_ROLES {
-    NORMAL = "NORMAL",
-    ADMIN = "ADMIN"
-}
+import { USER_ROLES } from "../../types";
 
 export class User {
     constructor(
         private id: string,
         private name: string,
-        private email: String,
-        private password : string
+        private email: string,
+        private password : string,
+        private role: USER_ROLES
     ) {
 
     }
@@ -33,3 +31,7 @@ export class User {
             );
     }
 }
+export enum USER_ROLES {
+    NORMAL = "NORMAL",
+    ADMIN = "ADMIN",
+ }
