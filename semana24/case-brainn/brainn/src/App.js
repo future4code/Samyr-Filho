@@ -1,9 +1,10 @@
+import Router from "./routes/Router";
 
 
 function App() {
   return (
     <div>
-      Olá mundo!
+      <Router/>
     </div>
   );
 }
