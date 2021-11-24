@@ -1,0 +1,18 @@
+{
+  "name": "aula-70",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "linkedList": "clear && tsnd ./src/linked-list/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^15.3.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.2"
+  },
+  "keywords": [],
+  "author": "Samyr Hissa",
+  "license": "ISC"
+}
