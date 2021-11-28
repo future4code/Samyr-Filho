@@ -1,11 +1,11 @@
-import Router from "./routes/Router";
-
+import Rota from "./routes/Router";
+import { Global } from "./styles";
 
 function App() {
   return (
-    <div>
-      <Router/>
-    </div>
+    <Global >
+      <Rota/>
+    </Global>
   );
 }
 

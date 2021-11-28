@@ -1,16 +1,17 @@
 import ResultGames from "../pages/ResultGames"
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 const Router = () => {
     return (
-        <BrouseRouter>
-            <switch>
-                <Router exact path="/results">
-                    <ResultGames>
+        <BrowserRouter>
+            <Switch>
 
-                    </ResultGames>
-                </Router>
-            </switch>
-        </BrouseRouter>
+                <Route exact path={"/"}>
+                    <ResultGames />
+                </Route>
+            </Switch>
+        </BrowserRouter>
     )
 }
+
 export default Router
