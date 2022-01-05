@@ -3,9 +3,7 @@ import { TelasDesk } from "../images/TelasDesk";
 import Logo from "../images/desktop/Desktop-Logo.png"
 import { BackImgContainer, 
          BallStyle, 
-         ConcursoDescricaoStyle, 
-         MainContainer, 
-         ResultContainer, 
+         MainContainer,
          Select, 
          SelectContainers,
          TextoTrevoStyle,
@@ -73,7 +71,7 @@ const ResultGames = () => {
             <div>
                 {jogoSelecionado ?
                     (<div>
-                        <TrevoStyle src={ Logo} alt=''/>
+                        <TrevoStyle src={Logo} alt='Trevo'/>
                         <TextoTrevoStyle >
                             {jogoSelecionado.nome ? jogoSelecionado.nome : <></>}
                         </TextoTrevoStyle>
@@ -94,7 +92,7 @@ const ResultGames = () => {
         )
     }) : <option>Sem jogos</option>
 
-    const ListNumeros = resultadoConcusrso ? resultadoConcusrso.numeros.map((numero)=> {
+    const ListaNumeros = resultadoConcusrso ? resultadoConcusrso.numeros.map((numero)=> {
         
         return (
             <p>
@@ -127,21 +125,16 @@ const ResultGames = () => {
             </SelectContainers>
             {atualizaTrevo()}
             <ResultMainContainer>
-                
                     {resultadoConcusrso ?
                         <BallStyle>
-                            {ListNumeros}
+                            {ListaNumeros}
                         </BallStyle> 
                         : <></>
                     }
                 
             </ResultMainContainer>
-            {/* <ConcursoStyle> */}
-                
                  {resultadoConcusrso ? <ConcursoInfo /> :
                                                 <></>}
-                 
-            {/* </ConcursoStyle> */}
         </MainContainer>
     )
 }

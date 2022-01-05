@@ -10,7 +10,7 @@ export const BackImgContainer = styled.div`
     display: flex;
     height: 100%;
     width: 100%;
-    
+    min-width: 700px;
 `
 export const SelectContainers = styled.div`
     position: absolute;
