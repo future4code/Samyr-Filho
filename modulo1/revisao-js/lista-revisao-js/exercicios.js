@@ -33,7 +33,10 @@ function retornaNumerosPares(array) {
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
- 
+    const novoArray = array.filter((item)=>{
+        return (item % 2) === 0 
+    }).map((item)=> Math.pow(item, 2))
+    return novoArray
 }
 
 // EXERCÍCIO 06
