@@ -8,6 +8,10 @@ const PopularMoviesPage = () => {
     const history = useHistory()
     const {states, requests} = useContext(GlobalContext)
     const [pageAtual, setPage] = useState(1)
+    useEffect(()=>{
+        requests.getGenres()
+        requests.getPopularMovies()
+    }, [])
 
     const getList = (page) => {
         requests.getPopularMovies(page)

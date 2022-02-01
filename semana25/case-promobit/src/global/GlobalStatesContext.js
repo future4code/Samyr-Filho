@@ -16,6 +16,7 @@ const GlobalStateContext = (props) => {
         axios
             .get(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`)
             .then((res) => {
+                console.log("getPopularMovies", res.data.results);
                 setPopularMovies(res.data.results)
             })
             .catch((err)=>{
