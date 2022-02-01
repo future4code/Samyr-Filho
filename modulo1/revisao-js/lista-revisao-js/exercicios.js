@@ -41,7 +41,8 @@ function retornaNumerosParesElevadosADois(array) {
 
 // EXERCÍCIO 06
 function retornaMaiorNumero(array) {
-  
+    const novoArray = array.sort((a,b)=>(a-b))
+    return novoArray[novoArray.length - 1]
 }
 
 // EXERCÍCIO 07
