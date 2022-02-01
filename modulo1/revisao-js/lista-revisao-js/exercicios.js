@@ -137,10 +137,29 @@ function retornaContasComSaldoAtualizado(contas) {
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-  
+    const consultasOrdenadas = consultas.sort((a, b)=>{
+        if(a.nome > b.nome){ return 1}
+        if(a.nome < b.nome){ return -1}
+        return 0
+    })
+   return consultasOrdenadas
 }
 
 // EXERCÍCIO 15B
 function retornaArrayOrdenadoPorData(consultas) {
-   
+    const dateFmtYmd = (date, formatStr = 'yyyy-MM-dd') => {
+        const newDate = date.split('/');
+    
+        const day = Number(newDate[0]);
+        const month = Number(newDate[1]) - 1;
+        const year = Number(newDate[2]);
+    
+        return new Date(year, month, day);
+    };
+    const consultasOrdenadas = consultas.sort((a, b)=>{
+        if(dateFmtYmd(a.dataDaConsulta) > dateFmtYmd(b.dataDaConsulta)){ return 1}
+        if(dateFmtYmd(a.dataDaConsulta) < dateFmtYmd(b.dataDaConsulta)){ return -1}
+        return 0
+    })
+    return consultasOrdenadas
 }
