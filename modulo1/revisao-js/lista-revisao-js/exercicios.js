@@ -22,7 +22,10 @@ function retornaArrayOrdenado(array) {
 
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
-  
+  const novoArray = array.filter((item)=>{
+      return (item % 2) === 0
+  })
+  return novoArray
 }
 
 // EXERCÍCIO 05
