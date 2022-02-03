@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "./styles.css";
 import { data } from "./data/data";
-import CardName from "./components/CardName/index.jsx"
+import { CardPeople } from "./components/CardPeople/CardPeople";
+import { CardName } from "./components/CardName";
 
 export default function App() {
   const [people, setPeople] = useState([]);
+  const [peopleSelected, setPeopleSelected] = useState()
  
   const renderiza = () => {
     setPeople(data);
@@ -12,9 +14,14 @@ export default function App() {
 
   const lista = people.map((item) => {
     return(
-      <CardName name= {item.name} />
+      <CardName people={item} key={item.name} onClick={(e)=>selectPeople(e)} />
     )
   });
+
+  const selectPeople = (people) => {
+    console.log(people)
+    setPeopleSelected(people)
+  }
 
   return (
     <div className="App">
@@ -24,7 +31,9 @@ export default function App() {
         <ul>
           {lista}
         </ul>
+        
       </div>
+      {peopleSelected ? <CardPeople people={peopleSelected}/> : <></>}
     </div>
   );
 }
