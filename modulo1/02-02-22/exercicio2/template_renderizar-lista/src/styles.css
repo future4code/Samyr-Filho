@@ -1,0 +1,27 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+ul{
+  display: flex;
+  flex-direction: column;
+  padding-inline-start: 0px;
+}
+
+li {
+  list-style: none;
+  padding: 0.5rem;
+  border: 1px solid;
+  width: 150px;
+}
+
+.List {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
